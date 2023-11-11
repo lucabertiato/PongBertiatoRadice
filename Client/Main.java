@@ -10,25 +10,37 @@ public class Main extends JFrame {
         GUI gui = new GUI();
         gui.creaFinestra(field);
 
-        //il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene ridisegnato il campo aggiornato
+        // il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene
+        // ridisegnato il campo aggiornato
         boolean game = true;
         while (game) {
-            
+
             int lastKey = gui.getListener().getLastKeyPressed();
 
-            if (lastKey == KeyEvent.VK_W || lastKey == KeyEvent.VK_S) {
-                field.getPlayerOne().getPaddle().setY((char)lastKey);
-            } else if (lastKey == KeyEvent.VK_A) {
+            if (lastKey == KeyEvent.VK_W) {
+                if (field.checkTop()) {
+                    field.getPlayerOne().getPaddle().setY('W');
+                }
+            }
+            else if (lastKey == KeyEvent.VK_S) {
+                if (field.checkDown()) {
+                    field.getPlayerOne().getPaddle().setY('S');
+                }
+            }
+            else if (lastKey == KeyEvent.VK_A) {
                 field.getPlayerTwo().getPaddle().setY('W');
             } else if (lastKey == KeyEvent.VK_D) {
                 field.getPlayerTwo().getPaddle().setY('S');
             }
+
             field.getBall().updateBallCoordinates();
-            if(field.checkWallHit()){
+            if (field.checkWallHit()) {
                 field.getBall().generateBall();
             }
-            
+
             field.checkPaddleHit();
+
+            game = field.checkScores();
 
             Thread.sleep(10);
         }

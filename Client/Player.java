@@ -1,6 +1,7 @@
 public class Player {
     private Paddle paddle;
     private int score;
+    private int sets;
 
     /*
      * Costruttore (default per il player locale)
@@ -8,6 +9,7 @@ public class Player {
     public Player() {
         this.paddle = new Paddle();
         this.score = 0;
+        this.sets = 0;
     }
 
     /*
@@ -17,6 +19,7 @@ public class Player {
     public Player(int x) {
         this.paddle = new Paddle(x);
         this.score = 0;
+        this.sets = 0;
     }
 
     /*
@@ -38,6 +41,14 @@ public class Player {
      */
     public void increaseScore() {
         this.score++;
+    }
+
+    /**
+     * Get dei set vinti dal giocatore
+     * @return set vinti
+     */
+    public int getSets(){
+        return this.sets;
     }
 
 }

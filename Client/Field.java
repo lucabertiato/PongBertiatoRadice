@@ -32,12 +32,17 @@ public class Field {
         // Crea una nuova fonte con dimensione personalizzata
         Font customFont = new Font("Arial", Font.BOLD, 50);
         g.setFont(customFont);
-        g.drawString(this.playerOne.getScore() + "", (1500 / 2) - 45, 50);
-        g.drawString(this.playerTwo.getScore() + "", (1500 / 2) + 20, 50);
+        g.drawString(this.playerOne.getScore() + "", (1500 / 2) - 55, 50);
+        g.drawString(this.playerTwo.getScore() + "", (1500 / 2) + 30, 50);
+
+        g.setColor(Color.RED);
+        g.drawString(this.playerOne.getSets() + "", (1500 / 2) - 85, 50);
+        g.drawString(this.playerTwo.getSets() + "", (1500 / 2) + 65, 50);
+
 
         // metà campo
+        g.setColor(Color.white);
         for (int i = 0; i < 750; i += 20) {
-            // g.setColor(Color.WHITE);
             g.drawLine(1500 / 2, i, 1500 / 2, i + 10);
         }
 
@@ -123,4 +128,30 @@ public class Field {
         }
     }
 
+    public boolean checkTop() {
+        // controllo alto
+        if (this.playerOne.getPaddle().getY() - 10 < 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkDown() {
+        // controllo basso
+        if (this.playerOne.getPaddle().getY() + 10 > 550) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkScores(){
+        //controllo set
+        
+
+
+        //controllo fine gioco
+
+
+        return true;
+    }
 }
