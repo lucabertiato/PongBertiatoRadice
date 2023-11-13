@@ -1,11 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
 
-class MyPanel extends JPanel {
+class GamePanel extends JPanel {
 
     private Field field;
 
-    public MyPanel(Field field) {
+    public GamePanel(Field field) {
         this.field = field;
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
