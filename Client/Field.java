@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class Field {
     Player playerOne;
     Player playerTwo;
     Ball ball;
+    ArrayList<PowerUp> listPowerUp;
+    //prova
+    PowerUp prova;
 
     /*
      * Costruttore
@@ -14,6 +18,22 @@ public class Field {
         this.playerOne = new Player();
         this.playerTwo = new Player(1500 - (this.playerOne.getPaddle().getX()) - 25);
         this.ball = new Ball();
+        this.listPowerUp = new ArrayList<PowerUp>();
+        this.prova = new PowerUp();
+        //riempi il vettore di powerUp
+        this.fillListPowerUp();
+    }
+
+    public void fillListPowerUp(){
+        PowerUp pA = new PowerUp('A', "", 75);
+        PowerUp pB = new PowerUp('B', "", 250);
+        PowerUp pC = new PowerUp('C', "", 425);
+        PowerUp pD = new PowerUp('D', "", 600);
+
+        this.listPowerUp.add(pA);
+        this.listPowerUp.add(pB);
+        this.listPowerUp.add(pC);
+        this.listPowerUp.add(pD);
     }
 
     /*
@@ -46,6 +66,13 @@ public class Field {
             g.drawLine(1500 / 2, i, 1500 / 2, i + 10);
         }
 
+        /*
+         * disegna il vettore dei powerUp
+         * controllo se power up attivato nella funzione
+         */
+        for (PowerUp powerUp : this.listPowerUp) {
+            powerUp.drawPowerUp(g);
+        }
     }
 
     /*
@@ -125,6 +152,28 @@ public class Field {
             }
             // inverte percorso sul piano x
             this.ball.setDirectionX('r');
+        }
+    }
+
+    /*
+     * controllo il colpo della pallina sul power Up
+     */
+    public void checkPowerUpHit(){
+        //per tutti i power up
+        for(int i = 0; i < this.listPowerUp.size(); i++){
+            //solo se è disponibile
+            if(this.listPowerUp.get(i).getIsActivate()){
+                //TODO controllo la collisione
+                if ((this.ball.getX() + (this.ball.getRadius() * 2) >= this.listPowerUp.get(i).getX())
+                    && (this.ball.getY() >= this.listPowerUp.get(i).getY())
+                        && (this.ball.getY() <= this.listPowerUp.get(i).getY() + this.listPowerUp.get(i).getWidth())
+                ){
+                   //lo rendo non più disponibile e attivo l'effetto/potenziamento
+                   //prova e incremento
+                    this.playerOne.increaseScore();
+                }
+            }
+             
         }
     }
 
