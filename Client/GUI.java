@@ -13,13 +13,14 @@ public class GUI {
     private JFrame finestra;
     private Listener keyListener;
     private Timer gameTimer;
+    private Timer powerUpTimer;
 
     private char type; // W = waiting; C = countdown; G = game;
 
     private Timer countdownTimer;
     private int second; //per il countdown
 
-    public GUI(char type) throws IOException {
+    public GUI(char type, Field f) throws IOException {
         this.type = type;
         this.second = 5;
 
@@ -36,6 +37,14 @@ public class GUI {
                 }
             });
             gameTimer.start();
+
+            powerUpTimer = new Timer(10000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    f.generatePowerUp();
+                }
+            });
+            powerUpTimer.start();
         }
         else if(type == 'C'){
             this.countdownTimer = new Timer(1000, new ActionListener() {

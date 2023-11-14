@@ -2,14 +2,16 @@ public class Player {
     private Paddle paddle;
     private int score;
     private int sets;
+    private PowerUp currentPowerUp;
 
     /*
      * Costruttore (default per il player locale)
-     */
+    */
     public Player() {
         this.paddle = new Paddle();
         this.score = 0;
         this.sets = 0;
+        this.currentPowerUp = new PowerUp();
     }
 
     /*
@@ -20,6 +22,20 @@ public class Player {
         this.paddle = new Paddle(x);
         this.score = 0;
         this.sets = 0;
+    }
+
+    /*
+     * Set del powerUp che si ha a disposizione
+     */
+    public void setCurrentPowerUp(PowerUp pUp){
+        this.currentPowerUp = pUp;
+    }
+
+    /*
+     * Get del powerUp che si ha a disposizione
+     */
+    public PowerUp getCurrentPowerUp(){
+        return this.currentPowerUp;
     }
 
     /*

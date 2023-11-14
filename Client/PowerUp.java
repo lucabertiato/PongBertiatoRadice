@@ -9,32 +9,33 @@ public class PowerUp {
     private char type;
     private Boolean isActivate;
     private String img;
+    private Boolean isValid;
 
     /*
      * Costruttore (default)
     */
     public PowerUp() {
         this.x = 500;
-        this.y = y;
+        this.y = 0;
         this.type = ' ';
         this.width = 35;
-        this.isActivate = true;
+        this.isActivate = false;
         this.img = "";
+        this.isValid = false;
     }
 
     /*
      * Costruttore (con parametri)
-     * indica il tipo di potenziamento
-     * e il percoso dell'immagine da mettere nel quadrato
-     * e la coordinata y
+     * con la definizione delle coordinate
      */
-    public PowerUp(char type, String img, int y) {
-        this.x = 500;
+    public PowerUp(int y, int x) {
+        this.x = x;
         this.y = y;
         this.width = 35;
-        this.type = type;
-        this.isActivate = true;
-        this.img = img;
+        this.type = ' ';
+        this.isActivate = false;
+        this.img = "";
+        this.isValid = false;
     }
 
     /*
@@ -93,10 +94,17 @@ public class PowerUp {
     }
     /*
      * set tipo power up con controlli
-     */
+     *
+    * CARATTERI POSSIBILI
+    * A
+    * B
+    * C
+    * D
+    */
     public void setType(char type) {
-        //TODO controlli per il tipo di potenziamento
-        this.type = type;
+        //TODO in base al carattere metto anche l'icona del potenziamento
+        if(type == 'A' || type == 'B' || type == 'C' || type == 'D')
+            this.type = type;
     }
 
     /*
@@ -110,5 +118,18 @@ public class PowerUp {
      */
     public void setIsActivate(Boolean isActivate) {
         this.isActivate = isActivate;
+    }
+
+    /*
+     * get stato del potenziamento
+     */
+    public Boolean getIsValid() {
+        return isValid;
+    }
+    /*
+     * set stato del potenziamento
+     */
+    public void setIsValid(Boolean isValid) {
+        this.isActivate = isValid;
     }
 }

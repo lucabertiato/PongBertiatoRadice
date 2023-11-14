@@ -8,6 +8,10 @@ public class Ball {
     private char directionX;
     private char directionY;
     private int angle;
+    //se 0 = nessuno
+    //se 1 = player 1
+    //se 2 = player 2
+    private int lastTouch;
 
     /*
      * Costruttore
@@ -19,6 +23,7 @@ public class Ball {
         this.directionX = ' ';
         this.directionY = ' ';
         this.angle = 0;
+        this.lastTouch = 0;
     }
 
     /*
@@ -79,6 +84,9 @@ public class Ball {
         }
 
         this.angle = gen;
+
+        //resetto last touch della pallina
+        this.lastTouch = 0;
     }
 
     public void updateBallCoordinates() {
@@ -121,6 +129,13 @@ public class Ball {
     }
 
     /*
+     * Get ultimo giocatore che ha toccato
+     */
+    public int getLastTouch() {
+        return this.lastTouch;
+    }
+
+    /*
      * Get del raggio della pallina
      */
     public int getRadius() {
@@ -157,4 +172,7 @@ public class Ball {
         this.angle = value;
     }
 
+    public void setLastTouch(int touch) {
+        this.lastTouch = touch;
+    }
 }

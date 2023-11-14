@@ -2,14 +2,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Field {
     Player playerOne;
     Player playerTwo;
     Ball ball;
     ArrayList<PowerUp> listPowerUp;
-    //prova
-    PowerUp prova;
 
     /*
      * Costruttore
@@ -19,21 +18,33 @@ public class Field {
         this.playerTwo = new Player(1500 - (this.playerOne.getPaddle().getX()) - 25);
         this.ball = new Ball();
         this.listPowerUp = new ArrayList<PowerUp>();
-        this.prova = new PowerUp();
         //riempi il vettore di powerUp
         this.fillListPowerUp();
     }
 
+    /*
+     * riempi il vettore con tutti e 4 i possibili power up
+     */
     public void fillListPowerUp(){
-        PowerUp pA = new PowerUp('A', "", 75);
-        PowerUp pB = new PowerUp('B', "", 250);
-        PowerUp pC = new PowerUp('C', "", 425);
-        PowerUp pD = new PowerUp('D', "", 600);
-
+        //aggiugni powerup a sinistra
+        PowerUp pA = new PowerUp(75, 500);
+        PowerUp pB = new PowerUp(250, 500);
+        PowerUp pC = new PowerUp(425, 500);
+        PowerUp pD = new PowerUp(600, 500);
         this.listPowerUp.add(pA);
         this.listPowerUp.add(pB);
         this.listPowerUp.add(pC);
         this.listPowerUp.add(pD);
+
+        //power up a destra
+        PowerUp pA1 = new PowerUp(75, 900);
+        PowerUp pB2 = new PowerUp(250, 900);
+        PowerUp pC3 = new PowerUp(425, 900);
+        PowerUp pD4 = new PowerUp(600, 900);
+        this.listPowerUp.add(pA1);
+        this.listPowerUp.add(pB2);
+        this.listPowerUp.add(pC3);
+        this.listPowerUp.add(pD4);
     }
 
     /*
@@ -49,16 +60,15 @@ public class Field {
         this.ball.drawBall(g);
 
         // punteggio
-        // Crea una nuova fonte con dimensione personalizzata
+        // crea una nuova fonte con dimensione personalizzata
         Font customFont = new Font("Arial", Font.BOLD, 50);
         g.setFont(customFont);
         g.drawString(this.playerOne.getScore() + "", (1500 / 2) - 55, 50);
         g.drawString(this.playerTwo.getScore() + "", (1500 / 2) + 30, 50);
-
+        // set
         g.setColor(Color.RED);
         g.drawString(this.playerOne.getSets() + "", (1500 / 2) - 85, 50);
         g.drawString(this.playerTwo.getSets() + "", (1500 / 2) + 65, 50);
-
 
         // metà campo
         g.setColor(Color.white);
@@ -66,10 +76,8 @@ public class Field {
             g.drawLine(1500 / 2, i, 1500 / 2, i + 10);
         }
 
-        /*
-         * disegna il vettore dei powerUp
-         * controllo se power up attivato nella funzione
-         */
+        //disegna vettore powerup
+        //controllo nella funzione
         for (PowerUp powerUp : this.listPowerUp) {
             powerUp.drawPowerUp(g);
         }
@@ -136,6 +144,8 @@ public class Field {
             }
             // inverte percorso sul piano x
             this.ball.setDirectionX('l');
+            //imposto chi ha fatto l'ultimo tocco
+            this.ball.setLastTouch(2);
         }
         // controllo paddle utente
         else if ((this.ball.getX() >= this.playerOne.getPaddle().getX()
@@ -152,6 +162,8 @@ public class Field {
             }
             // inverte percorso sul piano x
             this.ball.setDirectionX('r');
+            //imposto nella pallina chi ha fatto l'ultimo tocco
+            this.ball.setLastTouch(1);
         }
     }
 
@@ -163,17 +175,26 @@ public class Field {
         for(int i = 0; i < this.listPowerUp.size(); i++){
             //solo se è disponibile
             if(this.listPowerUp.get(i).getIsActivate()){
-                //TODO controllo la collisione
-                if ((this.ball.getX() + (this.ball.getRadius() * 2) >= this.listPowerUp.get(i).getX())
-                    && (this.ball.getY() >= this.listPowerUp.get(i).getY())
-                        && (this.ball.getY() <= this.listPowerUp.get(i).getY() + this.listPowerUp.get(i).getWidth())
-                ){
-                   //lo rendo non più disponibile e attivo l'effetto/potenziamento
-                   //prova e incremento
-                    this.playerOne.increaseScore();
+                //controllo della collisione tra pallina e quadrato del power up
+                if ((this.ball.getX() + this.ball.getRadius() >= this.listPowerUp.get(i).getX() && 
+                this.ball.getX() + this.ball.getRadius() <= this.listPowerUp.get(i).getX() + this.listPowerUp.get(i).getWidth())
+                && (this.ball.getY() + this.ball.getRadius() >= this.listPowerUp.get(i).getY() && 
+                this.ball.getY() + this.ball.getRadius() <= this.listPowerUp.get(i).getY() + this.listPowerUp.get(i).getWidth())
+                ) {
+                    //se la pallina non è stata toccata da nessun giocatore e tocca un power non succede nulla
+                    //quindi
+                    //se last touch != 0
+                    if(this.ball.getLastTouch() != 0){
+                        //lo rendo non più disponibile e attivo l'effetto/potenziamento
+                        this.listPowerUp.get(i).setIsActivate(false);
+                        //assegno il power up al giocatore che l'ha colpito
+                        if(this.ball.getLastTouch() == 2)
+                            this.playerTwo.setCurrentPowerUp(this.listPowerUp.get(i));
+                        else if(this.ball.getLastTouch() == 1)
+                            this.playerOne.setCurrentPowerUp(this.listPowerUp.get(i));
+                    }
                 }
             }
-             
         }
     }
 
@@ -202,5 +223,31 @@ public class Field {
 
 
         return true;
+    }
+
+    /*
+     * genera la posizione e la tipologia del power up
+     */
+    public void generatePowerUp(){
+        Random random = new Random();
+        int type = random.nextInt(3);
+        int pos = random.nextInt(7);
+        //attiva il power up alla posizione random
+        switch (type) {
+            case 0:
+                this.listPowerUp.get(pos).setType('A');
+                break;
+            case 1:
+                this.listPowerUp.get(pos).setType('B');
+                break;
+            case 2:
+                this.listPowerUp.get(pos).setType('C');
+                break;
+            case 3:
+                this.listPowerUp.get(pos).setType('D');
+                break;
+        }
+        //lo rendo visibile
+        this.listPowerUp.get(pos).setIsActivate(true);
     }
 }
