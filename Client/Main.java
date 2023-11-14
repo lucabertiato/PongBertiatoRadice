@@ -1,10 +1,13 @@
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 
 public class Main extends JFrame {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, TransformerException, ParserConfigurationException {
         boolean start = false;
         // connessione
         // TCP_CLIENT tcpService = new TCP_CLIENT("127.0.0.1", 666);
@@ -25,11 +28,10 @@ public class Main extends JFrame {
 
         // il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene
         // ridisegnato il campo aggiornato
-        boolean game = true;
-        while (game) {
+        int game = 0;
+        while (game == 0) {
 
             int lastKey = gui.getListener().getLastKeyPressed();
-
             if (lastKey == KeyEvent.VK_W) {
                 if (field.checkTop()) {
                     field.getPlayerOne().getPaddle().setY('W');
@@ -38,12 +40,14 @@ public class Main extends JFrame {
                 if (field.checkDown()) {
                     field.getPlayerOne().getPaddle().setY('S');
                 }
-            } else if (lastKey == KeyEvent.VK_A) {
-                field.getPlayerTwo().getPaddle().setY('W');
-            } else if (lastKey == KeyEvent.VK_D) {
-                field.getPlayerTwo().getPaddle().setY('S');
             }
 
+            //serialize in xml del campo
+            /*XML_CLIENT xmlService = new XML_CLIENT("tmp.xml");
+            String xmlField = xmlService.fieldToXML(field);
+            TCP_CLIENT tcpService = new TCP_CLIENT("127.0.0.1", 666);
+            tcpService.sendField(xmlField);*/
+    
             field.getBall().updateBallCoordinates();
             if (field.checkWallHit()) {
                 field.getBall().generateBall();
@@ -54,6 +58,13 @@ public class Main extends JFrame {
 
             Thread.sleep(10);
         }
-
+        
+        gui.stopGame();
+        if(game == 1){
+            System.out.println("Hai vinto!");
+        }
+        else if(game == 2){
+            System.out.println("Hai perso!");
+        }
     }
 }

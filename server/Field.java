@@ -237,9 +237,9 @@ public class Field {
         }
 
         //controllo fine gioco
-        if(playerOne.getSets() == 1){
+        if(playerOne.getSets() == 3){
             return 1;
-        } else if(playerTwo.getSets() == 1){
+        } else if(playerTwo.getSets() == 3){
             return 2;
         }
 

@@ -63,6 +63,11 @@ public class GUI {
     
     }
 
+    public void stopGame(){
+        this.gameTimer.stop();
+        this.finestra.dispose();
+    }
+
     public void creaFinestra(Field f) {
         finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         finestra.setPreferredSize(new Dimension(WIDTH, HEIGHT));
