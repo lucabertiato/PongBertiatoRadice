@@ -136,6 +136,4 @@ public class PowerUp {
     public void setImg(String img) {
         this.img = img;
     }
-
-    
 }

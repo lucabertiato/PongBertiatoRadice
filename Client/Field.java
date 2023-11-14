@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Field {
+public class Field{
     Player playerOne;
     Player playerTwo;
     Ball ball;
@@ -81,6 +81,12 @@ public class Field {
         for (PowerUp powerUp : this.listPowerUp) {
             powerUp.drawPowerUp(g);
         }
+
+        //disegna vettore palline powerup
+        //controllo nella funzione
+        for(int i = 0; i < this.listPowerUp.size(); i++){
+            this.listPowerUp.get(i).drawBallPowerUp(g);
+        }
     }
 
     /*
@@ -125,8 +131,12 @@ public class Field {
         if (this.ball.getX() <= 0 || this.ball.getX() + (this.ball.getRadius() * 2) >= 1500) {
             if (this.ball.getX() <= 0) {
                 this.playerTwo.increaseScore();
+                //resetto last touch della pallina
+                this.ball.setLastTouch(0);
             } else {
                 this.playerOne.increaseScore();
+                //resetto last touch della pallina
+                this.ball.setLastTouch(0);
             }
             return true;
         }
@@ -171,8 +181,9 @@ public class Field {
         }
     }
 
-    /*
-     * controllo il colpo della pallina sul power Up
+    /**
+     * controllo colpo della pallina sul blocco del potenziamento
+     * @param g per disegnare la pallina powerUp
      */
     public void checkPowerUpHit(){
         //per tutti i power up
@@ -196,12 +207,20 @@ public class Field {
                             this.playerTwo.setCurrentPowerUp(this.listPowerUp.get(i));
                         else if(this.ball.getLastTouch() == 1)
                             this.playerOne.setCurrentPowerUp(this.listPowerUp.get(i));
+                        //il blocco è stato rotto quindi imposto le coordinate dela pallina
+                        //lo rendo attivo
+                        this.listPowerUp.get(i).setIsBallPowerUpActivate(true);
+                        this.listPowerUp.get(i).getBallPowerUp().generateBallPowerUp();
+                        this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).getX(), this.listPowerUp.get(i).getY());
                     }
                 }
             }
         }
     }
 
+    /*
+     * Controllo del tocco in alto
+     */
     public boolean checkTop() {
         // controllo alto
         if (this.playerOne.getPaddle().getY() - 10 < 0) {
@@ -210,6 +229,9 @@ public class Field {
         return true;
     }
 
+    /*
+     * Controllo del tocco in basso
+     */
     public boolean checkDown() {
         // controllo basso
         if (this.playerOne.getPaddle().getY() + 10 > 550) {
@@ -218,19 +240,25 @@ public class Field {
         return true;
     }
 
+    /*
+     * Controllo punteggio
+     */
     public int checkScores(){
         boolean tmp = false;
 
         //controllo set
+        //assegna set al giocatore 1
         if(this.playerOne.getScore() == 10 ){
             this.playerOne.increaseSets();
             tmp = true;
         }
+        //assegna set al giocatore 2
         else if(this.playerTwo.getScore() == 10){
             this.playerTwo.increaseSets();
             tmp = true;
         }
 
+        //se è finito un set resetta il punteggio
         if(tmp){
             this.playerOne.resetScore();
             this.playerTwo.resetScore();
@@ -242,7 +270,6 @@ public class Field {
         } else if(playerTwo.getSets() == 1){
             return 2;
         }
-
         return 0;
     }
 
@@ -272,18 +299,30 @@ public class Field {
         this.listPowerUp.get(pos).setIsActivate(true);
     }
 
+    /*
+     * Set giocatore 1
+     */
     public void setPlayerOne(Player p){
         this.playerOne = p;
     }
 
+    /*
+     * Set giocatore 2
+     */
     public void setPlayerTwo(Player p){
         this.playerTwo = p;
     }
 
+    /*
+     * Set pallina
+     */
     public void setBall(Ball b){
         this.ball = b;
     }
 
+    /*
+     * Set lista di powerUp
+     */
     public void setListPowerUp(ArrayList<PowerUp> list){
         this.listPowerUp = list;
     }

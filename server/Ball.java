@@ -114,6 +114,32 @@ public class Ball {
         }
     }
 
+    public void updateBallCoordinatesPowerUp() {
+        //left
+        if (this.directionX == 'l')
+            this.x = this.x - 10;
+        //right
+        else if (this.directionX == 'r') {
+            this.x = this.x + 10;
+        }
+    }
+
+    public void generateBallPowerUp() {
+        // left o right in base all'ultimo touch della pallina
+        if (this.lastTouch == 1) { // left
+            this.directionX = 'l';
+        } else if (this.lastTouch == 2) { // right
+            this.directionX = 'r';
+        }
+
+        // starting x
+        if (this.directionX == 'l') {
+            this.x = (1500 / 2) - this.radius;
+        } else if (this.directionX == 'r') {
+            this.x = (1500 / 2) + this.radius;
+        }
+    }
+
     /*
      * Get della coordinata x della pallina
      */

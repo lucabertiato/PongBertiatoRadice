@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
@@ -54,8 +53,15 @@ public class Main extends JFrame {
             }
             field.checkPaddleHit();
             field.checkPowerUpHit();
-            game = field.checkScores();
 
+            //aggiorno x e y della pallina power up
+            for(int i = 0; i < field.listPowerUp.size(); i++){
+                if(field.listPowerUp.get(i).getIsBallPowerUpActivate())
+                    field.listPowerUp.get(i).getBallPowerUp().updateBallCoordinatesPowerUp();
+            }
+
+            //controllo punteggio
+            game = field.checkScores();
             Thread.sleep(10);
         }
         

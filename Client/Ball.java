@@ -37,7 +37,6 @@ public class Ball {
     public void generateBall() {
         Random random = new Random();
         // left o right
-
         int gen = random.nextInt(0, 2);
 
         if (gen == 0) { // left
@@ -84,9 +83,6 @@ public class Ball {
         }
 
         this.angle = gen;
-
-        //resetto last touch della pallina
-        this.lastTouch = 0;
     }
 
     public void updateBallCoordinates() {
@@ -111,6 +107,25 @@ public class Ball {
         else if (this.directionY == 'd' && this.directionX == 'r') {
             this.x = this.x + val1*10;
             this.y = this.y + val2*10;
+        }
+    }
+
+    public void updateBallCoordinatesPowerUp() {
+        //left
+        if (this.directionX == 'l')
+            this.x = this.x - 4;
+        //right
+        else if (this.directionX == 'r') {
+            this.x = this.x + 4;
+        }
+    }
+
+    public void generateBallPowerUp() {
+        // left o right in base all'ultimo touch della pallina
+        if (this.lastTouch == 1) { // left
+            this.directionX = 'l';
+        } else if (this.lastTouch == 2) { // right
+            this.directionX = 'r';
         }
     }
 

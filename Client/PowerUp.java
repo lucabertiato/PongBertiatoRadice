@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class PowerUp {
@@ -10,6 +9,9 @@ public class PowerUp {
     private Boolean isActivate;
     private String img;
     private Boolean isValid;
+    //pallina che esce dopo aver colpito il blocco
+    private Ball ballPowerUp;
+    private Boolean isBallActivate;
 
     /*
      * Costruttore (default)
@@ -22,6 +24,8 @@ public class PowerUp {
         this.isActivate = false;
         this.img = "";
         this.isValid = false;
+        this.ballPowerUp = new Ball();
+        this.isBallActivate = false;
     }
 
     /*
@@ -36,6 +40,8 @@ public class PowerUp {
         this.isActivate = false;
         this.img = "";
         this.isValid = false;
+        this.ballPowerUp = new Ball();
+        this.isBallActivate = false;
     }
 
     /*
@@ -45,7 +51,23 @@ public class PowerUp {
     public void drawPowerUp(Graphics g) {
         if(this.isActivate)
             g.fillRect(this.x, this.y, this.width, this.width);
-     }
+    }
+
+    /*
+     * Set coordinate pallina potenziamento
+     */
+    public void setBallPowerUpCoordinates(int x, int y){
+        this.ballPowerUp.setX(x);
+        this.ballPowerUp.setY(y);
+    }
+
+    /*
+     * Disegno la pallina del potenziamento
+     */
+    public void drawBallPowerUp(Graphics g){
+        if(this.isBallActivate)
+            this.ballPowerUp.drawBall(g);
+    }
 
     /*
      * Get della coordinata x 
@@ -71,6 +93,10 @@ public class PowerUp {
      */
     public void setY(int y) {
         this.y = y;
+    }
+
+    public Ball getBallPowerUp(){
+        return this.ballPowerUp;
     }
     
     /*
@@ -119,6 +145,20 @@ public class PowerUp {
     public void setIsActivate(Boolean isActivate) {
         this.isActivate = isActivate;
     }
+
+    /*
+     * get stato della pallina del potenziamento
+     */
+    public Boolean getIsBallPowerUpActivate() {
+        return this.isBallActivate;
+    }
+    /*
+     * set stato della pallina del potenziamento
+     */
+    public void setIsBallPowerUpActivate(Boolean isBallActivate) {
+        this.isBallActivate = isBallActivate;
+    }
+
 
     /*
      * get stato del potenziamento
