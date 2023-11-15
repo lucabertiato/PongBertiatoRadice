@@ -210,8 +210,8 @@ public class Field{
                         //il blocco è stato rotto quindi imposto le coordinate dela pallina
                         //lo rendo attivo
                         this.listPowerUp.get(i).setIsBallPowerUpActivate(true);
-                        this.listPowerUp.get(i).getBallPowerUp().generateBallPowerUp();
-                        this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).getX(), this.listPowerUp.get(i).getY());
+                        this.listPowerUp.get(i).getBallPowerUp().setDirectionXPowerUp(this.ball.getLastTouch());
+                        this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).getX(), this.listPowerUp.get(i).getY());                     
                     }
                 }
             }

@@ -120,6 +120,13 @@ public class Ball {
         }
     }
 
+    public void setDirectionXPowerUp(int value) {
+        if(value == 1)
+            this.directionY = 'l';
+        else if(value == 2)
+            this.directionY = 'r';
+    }
+
     public void generateBallPowerUp() {
         // left o right in base all'ultimo touch della pallina
         if (this.lastTouch == 1) { // left
