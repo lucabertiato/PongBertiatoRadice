@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.*;
 import java.util.Random;
 
 public class Ball {
@@ -29,15 +29,19 @@ public class Ball {
     /*
      * Disegno pallina
      */
-    public void drawBall(Graphics g) {
-       // g.setColor(Color.WHITE);
+    public void drawBall(Graphics g, char flagColore) {
+        //se devo colorare di blu
+        if(flagColore == 'b')
+            g.setColor(Color.BLUE);
         g.fillOval((int)this.x, (int)this.y, this.radius, this.radius);// DrawCircle(this.x, this.y, this.radius, White, true);
+        //ritrono al colore bianco
+        g.setColor(Color.WHITE);
+
     }
 
     public void generateBall() {
         Random random = new Random();
         // left o right
-
         int gen = random.nextInt(0, 2);
 
         if (gen == 0) { // left
@@ -84,9 +88,6 @@ public class Ball {
         }
 
         this.angle = gen;
-
-        //resetto last touch della pallina
-        this.lastTouch = 0;
     }
 
     public void updateBallCoordinates() {
@@ -117,11 +118,18 @@ public class Ball {
     public void updateBallCoordinatesPowerUp() {
         //left
         if (this.directionX == 'l')
-            this.x = this.x - 10;
+            this.x = this.x - 4;
         //right
         else if (this.directionX == 'r') {
-            this.x = this.x + 10;
+            this.x = this.x + 4;
         }
+    }
+
+    public void setDirectionXPowerUp(int value) {
+        if(value == 1)
+            this.directionX = 'l';
+        else if(value == 2)
+            this.directionX = 'r';
     }
 
     public void generateBallPowerUp() {
@@ -130,13 +138,6 @@ public class Ball {
             this.directionX = 'l';
         } else if (this.lastTouch == 2) { // right
             this.directionX = 'r';
-        }
-
-        // starting x
-        if (this.directionX == 'l') {
-            this.x = (1500 / 2) - this.radius;
-        } else if (this.directionX == 'r') {
-            this.x = (1500 / 2) + this.radius;
         }
     }
 

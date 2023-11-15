@@ -57,7 +57,7 @@ public class Field{
         this.playerTwo.getPaddle().drawPaddle(g);
 
         // palla
-        this.ball.drawBall(g);
+        this.ball.drawBall(g, ' ');
 
         // punteggio
         // crea una nuova fonte con dimensione personalizzata
@@ -143,7 +143,18 @@ public class Field{
         return false;
     }
 
-    public void checkPaddleHit() {
+    public void checkPowerUpBallHit() {
+        if(this.ball.getLastTouch() == 1){
+            
+        }
+    }
+
+    /*
+     * controllo se la pallina ha colpito una racchetta
+     * return true se l'ha colpita
+     * return false se non ha colpito nulla
+     */
+    public Boolean checkPaddleHit() {
         // controllo paddle avversaria
         if ((this.ball.getX() + (this.ball.getRadius() * 2) >= this.playerTwo.getPaddle().getX())
                 && (this.ball.getY() >= this.playerTwo.getPaddle().getY() && this.ball
@@ -160,6 +171,7 @@ public class Field{
             this.ball.setDirectionX('l');
             //imposto chi ha fatto l'ultimo tocco
             this.ball.setLastTouch(2);
+            return true;
         }
         // controllo paddle utente
         else if ((this.ball.getX() >= this.playerOne.getPaddle().getX()
@@ -178,14 +190,16 @@ public class Field{
             this.ball.setDirectionX('r');
             //imposto nella pallina chi ha fatto l'ultimo tocco
             this.ball.setLastTouch(1);
+            return true;
         }
+        return false;
     }
 
     /**
      * controllo colpo della pallina sul blocco del potenziamento
      * @param g per disegnare la pallina powerUp
      */
-    public void checkPowerUpHit(){
+    public void checkPowerUpBlockHit(){
         //per tutti i power up
         for(int i = 0; i < this.listPowerUp.size(); i++){
             //solo se è disponibile
@@ -202,11 +216,6 @@ public class Field{
                     if(this.ball.getLastTouch() != 0){
                         //lo rendo non più disponibile e attivo l'effetto/potenziamento
                         this.listPowerUp.get(i).setIsActivate(false);
-                        //assegno il power up al giocatore che l'ha colpito
-                        if(this.ball.getLastTouch() == 2)
-                            this.playerTwo.setCurrentPowerUp(this.listPowerUp.get(i));
-                        else if(this.ball.getLastTouch() == 1)
-                            this.playerOne.setCurrentPowerUp(this.listPowerUp.get(i));
                         //il blocco è stato rotto quindi imposto le coordinate dela pallina
                         //lo rendo attivo
                         this.listPowerUp.get(i).setIsBallPowerUpActivate(true);
@@ -265,9 +274,9 @@ public class Field{
         }
 
         //controllo fine gioco
-        if(playerOne.getSets() == 1){
+        if(playerOne.getSets() == 3){
             return 1;
-        } else if(playerTwo.getSets() == 1){
+        } else if(playerTwo.getSets() == 3){
             return 2;
         }
         return 0;

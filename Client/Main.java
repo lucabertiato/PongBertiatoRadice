@@ -52,7 +52,8 @@ public class Main extends JFrame {
                 field.getBall().generateBall();
             }
             field.checkPaddleHit();
-            field.checkPowerUpHit();
+            field.checkPowerUpBlockHit();
+            field.checkPowerUpBallHit();
 
             //aggiorno x e y della pallina power up
             for(int i = 0; i < field.listPowerUp.size(); i++){

@@ -66,7 +66,7 @@ public class PowerUp {
      */
     public void drawBallPowerUp(Graphics g){
         if(this.isBallActivate)
-            this.ballPowerUp.drawBall(g);
+            this.ballPowerUp.drawBall(g, 'b');
     }
 
     /*
