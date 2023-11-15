@@ -8,11 +8,12 @@ import java.io.IOException;
 public class Main extends JFrame {
     public static void main(String[] args) throws IOException, InterruptedException, TransformerException, ParserConfigurationException {
         boolean start = false;
-        // connessione
-        // TCP_CLIENT tcpService = new TCP_CLIENT("127.0.0.1", 666);
+        TCP_CLIENT tcpService = new TCP_CLIENT("127.0.0.1", 666);
+        XML xmlService = new XML("tmp");
+
         // GUI gui = new GUI('W');
         // gui.creaFinestra(null);
-        // tcpService.startGame();
+       tcpService.startGame();
 
         // countdown
        // gui = new GUI('C');
@@ -20,8 +21,12 @@ public class Main extends JFrame {
         //Thread.sleep(5000);
 
         // gioco effettivo
-        Field field = new Field();
-        field.getBall().generateBall();
+        //ricezione field iniziale da server
+        
+        tcpService = new TCP_CLIENT("127.0.0.1", 666);
+        String XMLfield = tcpService.receiveField();//new Field();
+        Field field = xmlService.fromXML(XMLfield);
+        //field.getBall().generateBall();
         GUI gui = new GUI('G', field);
         gui.creaFinestra(field);
 
@@ -42,10 +47,9 @@ public class Main extends JFrame {
             }
 
             //serialize in xml del campo
-            /*XML_CLIENT xmlService = new XML_CLIENT("tmp.xml");
             String xmlField = xmlService.fieldToXML(field);
-            TCP_CLIENT tcpService = new TCP_CLIENT("127.0.0.1", 666);
-            tcpService.sendField(xmlField);*/
+            tcpService = new TCP_CLIENT("127.0.0.1", 666);
+            tcpService.sendField(xmlField);
     
             field.getBall().updateBallCoordinates();
             if (field.checkWallHit()) {
