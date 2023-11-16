@@ -6,6 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 public class TCP_SERVER {
     private ServerSocket serverSocket;
     private Socket[] clientSockets;
@@ -38,7 +41,7 @@ public class TCP_SERVER {
 
             clientSockets[this.connectedClients] = clientSocket;
 
-            tmp[this.connectedClients] = clientSocket.getInetAddress()+"";
+            tmp[this.connectedClients] = clientSocket.getInetAddress() + "";
             this.connectedClients++;
         }
 
@@ -60,38 +63,108 @@ public class TCP_SERVER {
         return tmp;
     }
 
-    public void sendToPlayer(String IP, String xml) throws UnknownHostException, IOException{
-        this.serverSocket = new ServerSocket(666);
-        Socket clientSocket = new Socket(IP, 666);
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        out.println(xml);
-        clientSocket.close();
-        serverSocket.close();
-    }
-
-    public String[] receiveFields() throws IOException {
-        String[] array = new String[2];
+    /**
+     * Invia il campo iniziale ai due client
+     * 
+     * @param xml stringa xml del campo
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws TransformerException
+     */
+    public void sendGeneratedField(String xml, XML xmlService)
+            throws IOException, TransformerException, ParserConfigurationException {
+        System.out.println("Server in attesa di connessioni...");
 
         while (this.connectedClients < 2) {
             Socket clientSocket = this.serverSocket.accept();
             System.out.println("Client connesso: " + clientSocket.getInetAddress());
 
             clientSockets[this.connectedClients] = clientSocket;
-            
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String field = in.readLine();
-            array[this.connectedClients] = clientSocket.getInetAddress() + ";" + field;
-
             this.connectedClients++;
         }
 
-        // Chiudi il socket del server
-        serverSocket.close();
+        System.out.println("Entrambi i client sono connessi. Invio il campo iniziale.");
 
-        return array;
+        for (Socket clientSocket : this.clientSockets) {
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            out.println(xml);
 
+            // l'altro client deve avere la pallina invertita
+            Field tmp = xmlService.fromXML(xml);
+            if (tmp.getBall().getDirectionX() == 'l') {
+                tmp.getBall().setDirectionX('r');
+            } else {
+                tmp.getBall().setDirectionX('l');
+            }
+            xml = xmlService.fieldToXML(tmp);
+        }
+
+        // chiude i socket dei client
+        for (Socket clientSocket : this.clientSockets) {
+            clientSocket.close();
+        }
+
+        // chiude il socket del server
+        this.serverSocket.close();
     }
 
-    
+    public void updateFields(String[] sortedPlayers, XML xmlService) throws IOException, TransformerException, ParserConfigurationException {
+        String[] fieldsSent = new String[2];
+        System.out.println("Server in attesa di connessioni...");
+
+        while (this.connectedClients < 2) {
+            Socket clientSocket = this.serverSocket.accept();
+            System.out.println("Client connesso: " + clientSocket.getInetAddress());
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            fieldsSent[this.connectedClients] = in.readLine();
+
+            clientSockets[this.connectedClients] = clientSocket;
+            this.connectedClients++;
+        }
+
+        System.out.println("Entrambi i client sono connessi. Inizio procedura.");
+
+        // riordina campi in base a ordine iniziale di player
+        if (!((clientSockets[0].getInetAddress() + "").contains(sortedPlayers[0]))) { // disordinati
+            String tmp = fieldsSent[0];
+            fieldsSent[0] = fieldsSent[1];
+            fieldsSent[1] = tmp;
+
+            Socket tmpSocket = this.clientSockets[0];
+            this.clientSockets[0] = this.clientSockets[1];
+            this.clientSockets[1] = tmpSocket;
+        }
+
+        // conversione campi
+        Field[] tmpFieldList = new Field[2];
+        for (int i = 0; i < 2; i++) {
+            tmpFieldList[i] = xmlService.fromXML(fieldsSent[i]);
+        }
+
+        // inizio modifica campi
+        FieldUpdater fieldUpdater = new FieldUpdater(tmpFieldList[0], tmpFieldList[1]);
+        // swap informazioni
+        fieldUpdater.swapInfo();
+        // controlli vari
+        fieldUpdater.controls();
+
+        tmpFieldList[0] = fieldUpdater.getFieldOne();
+        tmpFieldList[1] = fieldUpdater.getFieldTwo();
+
+        int i = 0;
+        for (Socket clientSocket : this.clientSockets) {
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            out.println(xmlService.fieldToXML(tmpFieldList[i]));
+        }
+
+        // chiude i socket dei client
+        for (Socket clientSocket : this.clientSockets) {
+            clientSocket.close();
+        }
+
+        // chiude il socket del server
+        this.serverSocket.close();
+    }
+
 }

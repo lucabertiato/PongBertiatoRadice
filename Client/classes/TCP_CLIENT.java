@@ -25,14 +25,16 @@ public class TCP_CLIENT {
     }
 
 
-    public String receiveField() throws IOException{
+    public String receiveFirstField() throws IOException{
         this.response = in.readLine();
         clientSocket.close();
         return this.response;
     }
 
-    public void sendField(String message) throws IOException {
-        out.println(message);
+    public String updateField(String xml) throws IOException {
+        out.println(xml);
+        xml = in.readLine();
         clientSocket.close();
+        return xml;
     }
 }

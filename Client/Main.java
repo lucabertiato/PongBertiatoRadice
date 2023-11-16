@@ -22,19 +22,20 @@ public class Main extends JFrame {
 
         // gioco effettivo
         //ricezione field iniziale da server
-        
+        Thread.sleep(5);
         tcpService = new TCP_CLIENT("127.0.0.1", 666);
-        String XMLfield = tcpService.receiveField();//new Field();
+        String XMLfield = tcpService.receiveFirstField();//new Field();
         Field field = xmlService.fromXML(XMLfield);
-        //field.getBall().generateBall();
+      
         GUI gui = new GUI('G', field);
         gui.creaFinestra(field);
 
         // il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene
         // ridisegnato il campo aggiornato
         int game = 0;
+        
+     
         while (game == 0) {
-
             int lastKey = gui.getListener().getLastKeyPressed();
             if (lastKey == KeyEvent.VK_W) {
                 if (field.checkTop()) {
@@ -46,12 +47,16 @@ public class Main extends JFrame {
                 }
             }
 
-            //serialize in xml del campo
-            String xmlField = xmlService.fieldToXML(field);
+            //aggiorna campo
+            Thread.sleep(10000);
             tcpService = new TCP_CLIENT("127.0.0.1", 666);
-            tcpService.sendField(xmlField);
+            String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
+            System.out.println(newXmlField);
+            field = xmlService.fromXML(newXmlField);
+
+       
     
-            field.getBall().updateBallCoordinates();
+          /* field.getBall().updateBallCoordinates();
             if (field.checkWallHit()) {
                 field.getBall().generateBall();
             }
@@ -64,6 +69,7 @@ public class Main extends JFrame {
                 if(field.listPowerUp.get(i).getIsBallPowerUpActivate())
                     field.listPowerUp.get(i).getBallPowerUp().updateBallCoordinatesPowerUp();
             }
+            */ 
 
             //controllo punteggio
             game = field.checkScores();

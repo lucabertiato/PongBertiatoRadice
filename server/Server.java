@@ -13,19 +13,26 @@ public class Server {
         String[] arrayIPs = tcpService.startGame();
 
         //gioco
-        //campo iniziale per generazione palla
+
+        //campo iniziale
         Field field = new Field();
         field.getBall().generateBall();
-
-        //invio ai giocatori del campo
+        tcpService = new TCP_SERVER();
         XML xmlService = new XML("tmp");
-        tcpService.sendToPlayer(arrayIPs[0].replaceAll("/", ""), xmlService.fieldToXML(field));
-        //da fare inversione a specchio
+        tcpService.sendGeneratedField(xmlService.fieldToXML(field), xmlService);
 
-        tcpService.sendToPlayer(arrayIPs[1].replaceAll("/", ""), xmlService.fieldToXML(field));
-
-
+        //loop gioco
         int game = 0;
+        while(game == 0){
+            //1. campi con scambi e controlli
+            tcpService = new TCP_SERVER();
+            tcpService.updateFields(arrayIPs, xmlService);
+            //2. invio stato partita (0: continua, 1 win playerUno e 2 viceversa)
+        }
+        
+
+
+        
        // while(game == 0){
        /*  tcpService = new TCP_SERVER();
         String[] array = tcpService.receiveFields();
