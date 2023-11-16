@@ -27,7 +27,7 @@ public class GUI {
             finestra.addKeyListener(keyListener);
             finestra.setFocusable(true);
 
-            gameTimer = new Timer(1000, new ActionListener() {
+            gameTimer = new Timer(100, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     finestra.repaint();

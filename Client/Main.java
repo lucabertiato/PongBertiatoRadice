@@ -48,11 +48,12 @@ public class Main extends JFrame {
             }
 
             //aggiorna campo
-            Thread.sleep(10000);
             tcpService = new TCP_CLIENT("127.0.0.1", 666);
             String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
             System.out.println(newXmlField);
-            field = xmlService.fromXML(newXmlField);
+            Field newField = xmlService.fromXML(newXmlField);
+            field.updateField(newField);
+           
 
        
     
@@ -73,7 +74,7 @@ public class Main extends JFrame {
 
             //controllo punteggio
             game = field.checkScores();
-            Thread.sleep(10);
+            Thread.sleep(100);
         }
         
         gui.stopGame();

@@ -308,6 +308,13 @@ public class Field{
         this.listPowerUp.get(pos).setIsActivate(true);
     }
 
+    public void updateField(Field newField){
+        this.playerOne = newField.getPlayerOne();
+        this.playerTwo = newField.getPlayerTwo();
+        this.ball = newField.getBall();
+        this.listPowerUp = newField.getListPowerUp();
+    }
+
     /*
      * Set giocatore 1
      */
