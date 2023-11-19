@@ -47,6 +47,13 @@ public class Field{
         this.listPowerUp.add(pD4);
     }
 
+    public void updateField(Field newField){
+        this.playerOne = newField.getPlayerOne();
+        this.playerTwo = newField.getPlayerTwo();
+        this.ball = newField.getBall();
+        this.listPowerUp = newField.getListPowerUp();
+    }
+
     /*
      * Disegno campo da gioco
      */

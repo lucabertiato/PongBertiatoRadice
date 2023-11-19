@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -20,7 +19,7 @@ public class TCP_SERVER {
      * @throws IOException
      */
     public TCP_SERVER() throws IOException {
-        this.serverSocket = new ServerSocket(666);
+        this.serverSocket = new ServerSocket(667);
         this.clientSockets = new Socket[2];
         this.connectedClients = 0;
     }

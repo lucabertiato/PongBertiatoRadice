@@ -16,9 +16,19 @@ public class FieldUpdater {
         this.fields.add(f2);
     }
 
+    //scambia le informazioni fra i due campi
     public void swapInfo() {
-        this.fields.get(0).setPlayerTwo(this.fields.get(1).getPlayerOne());
-        this.fields.get(1).setPlayerTwo(this.fields.get(0).getPlayerOne());
+        if((this.fields.get(0).getPlayerOne().getScore() > 0) || (this.fields.get(0).getPlayerTwo().getScore() > 0) || (this.fields.get(1).getPlayerOne().getScore() > 0) || (this.fields.get(1).getPlayerTwo().getScore() > 0)){
+            System.out.println("");
+        }
+        this.fields.get(0).getPlayerTwo().getPaddle().setY(this.fields.get(1).getPlayerOne().getPaddle().getY());
+        this.fields.get(1).getPlayerTwo().getPaddle().setY(this.fields.get(0).getPlayerOne().getPaddle().getY());
+
+        this.fields.get(0).getPlayerTwo().setScore(this.fields.get(1).getPlayerOne().getScore());
+        this.fields.get(1).getPlayerTwo().setScore(this.fields.get(0).getPlayerOne().getScore());
+
+        this.fields.get(0).getPlayerTwo().setSets(this.fields.get(1).getPlayerOne().getSets());
+        this.fields.get(1).getPlayerTwo().setSets(this.fields.get(0).getPlayerOne().getSets());
     }
 
     public void controls() {

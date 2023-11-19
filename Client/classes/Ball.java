@@ -30,10 +30,10 @@ public class Ball {
      * Disegno pallina
      */
     public void drawBall(Graphics g, char flagColore) {
-        //se devo colorare di blu
+        //se devo colorare di blu altrimenti colora bianco
         if(flagColore == 'b')
             g.setColor(Color.BLUE);
-        g.fillOval((int)this.x, (int)this.y, this.radius, this.radius);// DrawCircle(this.x, this.y, this.radius, White, true);
+        g.fillOval((int)this.x, (int)this.y, this.radius, this.radius);
         //ritrono al colore bianco
         g.setColor(Color.WHITE);
 

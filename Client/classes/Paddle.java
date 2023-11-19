@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class Paddle {
@@ -32,7 +31,7 @@ public class Paddle {
      */
     public void drawPaddle(Graphics g) {
        // g.setColor(Color.WHITE);
-        g.fillRect(this.x, this.y, this.width, this.height);// DrawRectangle(this.x, this.y, this.width, this.height, White, true);
+        g.fillRect(this.x, this.y, this.width, this.height);
     }
 
     /*

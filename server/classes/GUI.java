@@ -35,7 +35,7 @@ public class GUI {
             });
             gameTimer.start();
 
-            powerUpTimer = new Timer(10000, new ActionListener() {
+            powerUpTimer = new Timer(20000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     f.generatePowerUp();

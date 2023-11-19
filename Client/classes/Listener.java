@@ -2,19 +2,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Listener implements KeyListener{
-    private int lastPressedKeyCode = -1; // Variabile di stato per memorizzare l'ultima chiave premuta
+    //ultimo tasto premuto
+    private int lastPressedKeyCode = -1;
 
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
-        this.lastPressedKeyCode = keyCode; // Aggiorna la variabile di stato con l'ultimo tasto premuto
+        //aggiorna ultimo tasto premuto
+        this.lastPressedKeyCode = keyCode;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if (keyCode == lastPressedKeyCode) {
-            this.lastPressedKeyCode = -1; // Resetta la variabile di stato quando il tasto viene rilasciato
+            //resetta variabile quando il tasto viene lasciato
+            this.lastPressedKeyCode = -1;
         }
     }
 

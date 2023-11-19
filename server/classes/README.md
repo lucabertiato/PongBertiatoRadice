@@ -1,1 +1,1 @@
-#cartella con tutte le classi utilizzate per la realizzazione del progetto
+#cartella con le classi per il server

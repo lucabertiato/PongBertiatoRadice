@@ -8,22 +8,22 @@ import java.io.IOException;
 public class Main extends JFrame {
     public static void main(String[] args) throws IOException, InterruptedException, TransformerException, ParserConfigurationException {
         boolean start = false;
-        TCP_CLIENT tcpService = new TCP_CLIENT("127.0.0.1", 666);
+        TCP_CLIENT tcpService = new TCP_CLIENT("localhost", 667);
         XML xmlService = new XML("tmp");
 
         // GUI gui = new GUI('W');
         // gui.creaFinestra(null);
-       tcpService.startGame();
+        tcpService.startGame();
 
         // countdown
-       // gui = new GUI('C');
+        // gui = new GUI('C');
         //gui.creaFinestra(null);
         //Thread.sleep(5000);
 
         // gioco effettivo
         //ricezione field iniziale da server
         Thread.sleep(5);
-        tcpService = new TCP_CLIENT("127.0.0.1", 666);
+        tcpService = new TCP_CLIENT("localhost", 667);
         String XMLfield = tcpService.receiveFirstField();//new Field();
         Field field = xmlService.fromXML(XMLfield);
       
@@ -33,6 +33,9 @@ public class Main extends JFrame {
         // il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene
         // ridisegnato il campo aggiornato
         int game = 0;
+
+        Thread updateThread = new Thread(new ThreadUpdate(field));
+        updateThread.start();
         
      
         while (game == 0) {
@@ -47,12 +50,12 @@ public class Main extends JFrame {
                 }
             }
 
-            //aggiorna campo
-            tcpService = new TCP_CLIENT("127.0.0.1", 666);
-            String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
-            System.out.println(newXmlField);
-            Field newField = xmlService.fromXML(newXmlField);
-            field.updateField(newField);
+            //aggiorna campo (su server)
+            // tcpService = new TCP_CLIENT("localhost", 667);
+            // String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
+            // System.out.println(newXmlField);
+            // Field newField = xmlService.fromXML(newXmlField);
+            // field.updateField(newField);
            
 
        

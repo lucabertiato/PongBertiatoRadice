@@ -89,6 +89,17 @@ public class Field{
         }
     }
 
+    public void updateField(Field newField){
+        this.playerOne = newField.getPlayerOne();
+        this.playerTwo = newField.getPlayerTwo();
+        this.ball = newField.getBall();
+        this.listPowerUp = newField.getListPowerUp();
+    }
+
+    public void updateBall(Ball ball){
+        this.ball = ball;
+    }
+
     /*
      * Get del primo giocatore
      */
@@ -306,13 +317,6 @@ public class Field{
         }
         //lo rendo visibile
         this.listPowerUp.get(pos).setIsActivate(true);
-    }
-
-    public void updateField(Field newField){
-        this.playerOne = newField.getPlayerOne();
-        this.playerTwo = newField.getPlayerTwo();
-        this.ball = newField.getBall();
-        this.listPowerUp = newField.getListPowerUp();
     }
 
     /*

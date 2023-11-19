@@ -28,4 +28,18 @@ public class TCP_CLIENT {
         out.println(message);
         clientSocket.close();
     }
+
+    public String updateField(String xml) throws IOException {
+        out.println(xml);
+        out.flush();
+        xml = in.readLine();
+        clientSocket.close();
+        return xml;
+    }
+
+    public String receiveFirstField() throws IOException{
+        this.response = in.readLine();
+        clientSocket.close();
+        return this.response;
+    }
 }

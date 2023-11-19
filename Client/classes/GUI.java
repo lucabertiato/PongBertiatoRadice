@@ -27,7 +27,7 @@ public class GUI {
             finestra.addKeyListener(keyListener);
             finestra.setFocusable(true);
 
-            gameTimer = new Timer(100, new ActionListener() {
+            gameTimer = new Timer(33, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     finestra.repaint();
@@ -35,7 +35,8 @@ public class GUI {
             });
             gameTimer.start();
 
-            powerUpTimer = new Timer(10000, new ActionListener() {
+            //ogni 20 secondi viene generato un power up
+            powerUpTimer = new Timer(20000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     f.generatePowerUp();

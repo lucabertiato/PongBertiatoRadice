@@ -30,9 +30,6 @@ public class Server {
             //2. invio stato partita (0: continua, 1 win playerUno e 2 viceversa)
         }
         
-
-
-        
        // while(game == 0){
        /*  tcpService = new TCP_SERVER();
         String[] array = tcpService.receiveFields();
