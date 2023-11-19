@@ -9,7 +9,7 @@ public class Server {
     public static void main(String[] args) throws IOException, TransformerException, ParserConfigurationException {
    
         //avvio
-        TCP_SERVER tcpService = new TCP_SERVER();
+        TcpServer tcpService = new TcpServer();
         String[] arrayIPs = tcpService.startGame();
 
         //gioco
@@ -17,7 +17,7 @@ public class Server {
         //campo iniziale
         Field field = new Field();
         field.getBall().generateBall();
-        tcpService = new TCP_SERVER();
+        tcpService = new TcpServer();
         XML xmlService = new XML("tmp");
         tcpService.sendGeneratedField(xmlService.fieldToXML(field), xmlService);
 
@@ -25,7 +25,7 @@ public class Server {
         int game = 0;
         while(game == 0){
             //1. campi con scambi e controlli
-            tcpService = new TCP_SERVER();
+            tcpService = new TcpServer();
             tcpService.updateFields(arrayIPs, xmlService);
             //2. invio stato partita (0: continua, 1 win playerUno e 2 viceversa)
         }

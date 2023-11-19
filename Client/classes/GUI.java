@@ -66,13 +66,18 @@ public class GUI {
         this.finestra.dispose();
     }
 
+    public void chiudiFinestra(){
+        finestra.setVisible(false);
+    }
+
     public void creaFinestra(Field f) {
         finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         finestra.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         finestra.getContentPane().setBackground(Color.BLACK);
         if (this.type == 'G') {
             finestra.add(new GamePanel(f));
-        } else {
+        } 
+        else {
             boolean startGame;
             if(this.type == 'W'){
                 startGame = false;

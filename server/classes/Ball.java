@@ -12,6 +12,7 @@ public class Ball {
     //se 1 = player 1
     //se 2 = player 2
     private int lastTouch;
+    private static int BALL_SPEED = 10;
 
     /*
      * Costruttore
@@ -24,6 +25,24 @@ public class Ball {
         this.directionY = ' ';
         this.angle = 0;
         this.lastTouch = 0;
+    }
+    Ball(Ball b) {
+        this.x = b.getX();
+        this.y = b.getY();
+        this.radius = b.getRadius();
+        this.directionX = b.getDirectionX();
+        this.directionY = b.getDirectionY();
+        this.angle = b.getAngle();
+        this.lastTouch = b.getLastTouch();
+    }
+    Ball(double x, double y, int radius, char directionX, char directionY, int angle, int lastTouch) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.directionX = directionX;
+        this.directionY = directionY;
+        this.angle = angle;
+        this.lastTouch = lastTouch;
     }
 
     /*
@@ -95,23 +114,23 @@ public class Ball {
         double val2 = Math.abs(Math.sin(this.angle));
         // up left
         if (this.directionY == 'u' && this.directionX == 'l') {
-            this.x = this.x - val1*10;
-            this.y = this.y - val2*10;
+            this.x = this.x - val1*BALL_SPEED;
+            this.y = this.y - val2*BALL_SPEED;
         }
         // up right
         else if (this.directionY == 'u' && this.directionX == 'r') {
-            this.x = this.x + val1*10;
-            this.y = this.y - val2*10;
+            this.x = this.x + val1*BALL_SPEED;
+            this.y = this.y - val2*BALL_SPEED;
         }
         // down left
         else if (this.directionY == 'd' && this.directionX == 'l') {
-            this.x = this.x - val1*10;
-            this.y = this.y + val2*10;
+            this.x = this.x - val1*BALL_SPEED;
+            this.y = this.y + val2*BALL_SPEED;
         }
         // down right
         else if (this.directionY == 'd' && this.directionX == 'r') {
-            this.x = this.x + val1*10;
-            this.y = this.y + val2*10;
+            this.x = this.x + val1*BALL_SPEED;
+            this.y = this.y + val2*BALL_SPEED;
         }
     }
 

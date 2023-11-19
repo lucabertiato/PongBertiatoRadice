@@ -5,13 +5,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TCP_CLIENT {
+public class TcpClient {
     private Socket clientSocket;
     private BufferedReader in;
     private PrintWriter out;
     private String response;
 
-    public TCP_CLIENT(String ip, int port) throws UnknownHostException, IOException {
+    public TcpClient(String ip, int port) throws UnknownHostException, IOException {
         this.clientSocket = new Socket(ip, port);
         this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         this.out = new PrintWriter(clientSocket.getOutputStream(), true);

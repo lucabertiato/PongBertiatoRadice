@@ -8,13 +8,14 @@ import java.io.IOException;
 public class Main extends JFrame {
     public static void main(String[] args) throws IOException, InterruptedException, TransformerException, ParserConfigurationException {
         boolean start = false;
-        TCP_CLIENT tcpService = new TCP_CLIENT("localhost", 667);
+        TcpClient tcpService = new TcpClient("localhost", 667);
         XML xmlService = new XML("tmp");
 
-        // GUI gui = new GUI('W');
-        // gui.creaFinestra(null);
+        GUI gui = new GUI('W', null);
+        gui.creaFinestra(null);
         tcpService.startGame();
-
+        gui.chiudiFinestra();
+        
         // countdown
         // gui = new GUI('C');
         //gui.creaFinestra(null);
@@ -23,11 +24,11 @@ public class Main extends JFrame {
         // gioco effettivo
         //ricezione field iniziale da server
         Thread.sleep(5);
-        tcpService = new TCP_CLIENT("localhost", 667);
-        String XMLfield = tcpService.receiveFirstField();//new Field();
+        tcpService = new TcpClient("localhost", 667);
+        String XMLfield = tcpService.receiveFirstField();
         Field field = xmlService.fromXML(XMLfield);
       
-        GUI gui = new GUI('G', field);
+        gui = new GUI('G', field);
         gui.creaFinestra(field);
 
         // il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene

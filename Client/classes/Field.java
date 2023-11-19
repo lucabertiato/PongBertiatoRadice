@@ -18,7 +18,7 @@ public class Field{
         this.playerTwo = new Player(1500 - (this.playerOne.getPaddle().getX()) - 25);
         this.ball = new Ball();
         this.listPowerUp = new ArrayList<PowerUp>();
-        //riempi il vettore di powerUp
+        //riempi lista
         this.fillListPowerUp();
     }
 
@@ -93,7 +93,7 @@ public class Field{
         this.playerOne = newField.getPlayerOne();
         this.playerTwo = newField.getPlayerTwo();
         this.ball = newField.getBall();
-        this.listPowerUp = newField.getListPowerUp();
+        //this.listPowerUp = newField.getListPowerUp();
     }
 
     public void updateBall(Ball ball){
@@ -300,23 +300,25 @@ public class Field{
         Random random = new Random();
         int type = random.nextInt(3);
         int pos = random.nextInt(7);
-        //attiva il power up alla posizione random
-        switch (type) {
-            case 0:
-                this.listPowerUp.get(pos).setType('A');
-                break;
-            case 1:
-                this.listPowerUp.get(pos).setType('B');
-                break;
-            case 2:
-                this.listPowerUp.get(pos).setType('C');
-                break;
-            case 3:
-                this.listPowerUp.get(pos).setType('D');
-                break;
+        if(this.listPowerUp.size() > pos){
+            //attiva il power up alla posizione random
+            switch (type) {
+                case 0:
+                    this.listPowerUp.get(pos).setType('A');
+                    break;
+                case 1:
+                    this.listPowerUp.get(pos).setType('B');
+                    break;
+                case 2:
+                    this.listPowerUp.get(pos).setType('C');
+                    break;
+                case 3:
+                    this.listPowerUp.get(pos).setType('D');
+                    break;
+            }
+            //lo rendo visibile
+            this.listPowerUp.get(pos).setIsActivate(true);
         }
-        //lo rendo visibile
-        this.listPowerUp.get(pos).setIsActivate(true);
     }
 
     /*

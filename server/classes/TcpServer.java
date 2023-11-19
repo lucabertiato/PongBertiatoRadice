@@ -8,7 +8,7 @@ import java.net.Socket;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-public class TCP_SERVER {
+public class TcpServer {
     private ServerSocket serverSocket;
     private Socket[] clientSockets;
     private int connectedClients;
@@ -18,7 +18,7 @@ public class TCP_SERVER {
      * 
      * @throws IOException
      */
-    public TCP_SERVER() throws IOException {
+    public TcpServer() throws IOException {
         this.serverSocket = new ServerSocket(667);
         this.clientSockets = new Socket[2];
         this.connectedClients = 0;

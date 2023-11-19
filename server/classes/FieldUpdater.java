@@ -39,10 +39,12 @@ public class FieldUpdater {
             if (this.fields.get(i).checkWallHit()) {
                 generateBall = true;
             }
-            this.fields.get(i).checkPaddleHit();
-            this.fields.get(i).checkPowerUpBlockHit();
-            this.fields.get(i).checkPowerUpBallHit();
-
+            else{
+                this.fields.get(i).checkPaddleHit();
+                this.fields.get(i).checkPowerUpBlockHit();
+                this.fields.get(i).checkPowerUpBallHit();
+            }
+        
             // aggiorno x e y della pallina power up
             for (int j = 0; i < this.fields.get(j).listPowerUp.size(); j++) {
                 if (this.fields.get(i).listPowerUp.get(j).getIsBallPowerUpActivate()){
@@ -56,13 +58,17 @@ public class FieldUpdater {
             tmpBall.generateBall();
             this.fields.get(0).setBall(tmpBall);
 
+            Ball tmpBall2 = new Ball(tmpBall);
+
             //inverte pallina per secondo campo
-            if (tmpBall.getDirectionX() == 'l') {
-                tmpBall.setDirectionX('r');
+            if (tmpBall2.getDirectionX() == 'l') {
+                tmpBall2.setDirectionX('r');
+                tmpBall2.setX(750 + tmpBall2.getRadius());
             } else {
-                tmpBall.setDirectionX('l');
+                tmpBall2.setDirectionX('l');
+                tmpBall2.setX(750 - tmpBall2.getRadius());
             }
-            this.fields.get(1).setBall(tmpBall);
+            this.fields.get(1).setBall(tmpBall2);
         }
     }
 
