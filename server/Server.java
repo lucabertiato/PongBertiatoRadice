@@ -7,7 +7,6 @@ import javax.xml.transform.TransformerException;
 
 public class Server {
     public static void main(String[] args) throws IOException, TransformerException, ParserConfigurationException {
-   
         //avvio
         TcpServer tcpService = new TcpServer();
         String[] arrayIPs = tcpService.startGame();
@@ -26,6 +25,7 @@ public class Server {
         while(game == 0){
             //1. campi con scambi e controlli
             tcpService = new TcpServer();
+            
             tcpService.updateFields(arrayIPs, xmlService);
             //2. invio stato partita (0: continua, 1 win playerUno e 2 viceversa)
         }

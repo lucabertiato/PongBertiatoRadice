@@ -36,13 +36,13 @@ public class GUI {
             gameTimer.start();
 
             //ogni 20 secondi viene generato un power up
-            powerUpTimer = new Timer(20000, new ActionListener() {
+            /*powerUpTimer = new Timer(20000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     f.generatePowerUp();
                 }
             });
-            powerUpTimer.start();
+            powerUpTimer.start();*/
         }
         else if(type == 'C'){
             this.countdownTimer = new Timer(1000, new ActionListener() {

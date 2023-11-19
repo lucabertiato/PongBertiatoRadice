@@ -296,7 +296,7 @@ public class Field{
     /*
      * genera la posizione e la tipologia del power up
      */
-    public void generatePowerUp(){
+    /*public void generatePowerUp(){
         Random random = new Random();
         int type = random.nextInt(3);
         int pos = random.nextInt(7);
@@ -319,7 +319,7 @@ public class Field{
             //lo rendo visibile
             this.listPowerUp.get(pos).setIsActivate(true);
         }
-    }
+    }*/
 
     /*
      * Set giocatore 1
