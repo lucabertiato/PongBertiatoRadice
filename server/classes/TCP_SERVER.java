@@ -87,13 +87,16 @@ public class TCP_SERVER {
         for (Socket clientSocket : this.clientSockets) {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             out.println(xml);
+            out.flush();
 
             // l'altro client deve avere la pallina invertita
             Field tmp = xmlService.fromXML(xml);
             if (tmp.getBall().getDirectionX() == 'l') {
                 tmp.getBall().setDirectionX('r');
+                tmp.getBall().setX(750);
             } else {
                 tmp.getBall().setDirectionX('l');
+                tmp.getBall().setX(750);
             }
             xml = xmlService.fieldToXML(tmp);
         }
@@ -155,6 +158,8 @@ public class TCP_SERVER {
         for (Socket clientSocket : this.clientSockets) {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             out.println(xmlService.fieldToXML(tmpFieldList[i]));
+            out.flush();
+            i++;
         }
 
         // chiude i socket dei client
