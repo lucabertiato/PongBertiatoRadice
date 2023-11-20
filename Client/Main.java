@@ -7,19 +7,14 @@ import java.io.IOException;
 
 public class Main extends JFrame {
     public static void main(String[] args) throws IOException, InterruptedException, TransformerException, ParserConfigurationException {
-        boolean start = false;
         TcpClient tcpService = new TcpClient("localhost", 667);
         XML xmlService = new XML("tmp");
 
-        GUI gui = new GUI('W', null);
+        GUI gui = new GUI('W', null, 0);
         gui.creaFinestra(null);
         tcpService.startGame();
         gui.chiudiFinestra();
-        
-        // countdown
-        // gui = new GUI('C');
-        //gui.creaFinestra(null);
-        //Thread.sleep(5000);
+
 
         // gioco effettivo
         //ricezione field iniziale da server
@@ -28,7 +23,7 @@ public class Main extends JFrame {
         String XMLfield = tcpService.receiveFirstField();
         Field field = xmlService.fromXML(XMLfield);
       
-        gui = new GUI('G', field);
+        gui = new GUI('G', field, 0);
         gui.creaFinestra(field);
 
         // il main aggiorna l'oggetto campo ogni 10ms mentre nella GUI ogni 10ms viene
@@ -51,42 +46,16 @@ public class Main extends JFrame {
                 }
             }
 
-            //aggiorna campo (su server)
-            // tcpService = new TCP_CLIENT("localhost", 667);
-            // String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
-            // System.out.println(newXmlField);
-            // Field newField = xmlService.fromXML(newXmlField);
-            // field.updateField(newField);
-           
-
-       
-    
-          /* field.getBall().updateBallCoordinates();
-            if (field.checkWallHit()) {
-                field.getBall().generateBall();
-            }
-            field.checkPaddleHit();
-            field.checkPowerUpBlockHit();
-            field.checkPowerUpBallHit();
-
-            //aggiorno x e y della pallina power up
-            for(int i = 0; i < field.listPowerUp.size(); i++){
-                if(field.listPowerUp.get(i).getIsBallPowerUpActivate())
-                    field.listPowerUp.get(i).getBallPowerUp().updateBallCoordinatesPowerUp();
-            }
-            */ 
-
             //controllo punteggio
             game = field.checkScores();
             Thread.sleep(100);
         }
         
         gui.stopGame();
-        if(game == 1){
-            System.out.println("Hai vinto!");
-        }
-        else if(game == 2){
-            System.out.println("Hai perso!");
-        }
+
+        gui = new GUI('E', null, game);
+        gui.creaFinestra(field);
+        Thread.sleep(5000);
+        gui.stopGame();
     }
 }

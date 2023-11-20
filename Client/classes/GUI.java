@@ -10,16 +10,15 @@ public class GUI {
     private JFrame finestra;
     private Listener keyListener;
     private Timer gameTimer;
-    private Timer powerUpTimer;
 
-    private char type; // W = waiting; C = countdown; G = game;
+    private char type; // W = waiting; G = game;
+    private int second;
+    private int result;
 
-    private Timer countdownTimer;
-    private int second; //per il countdown
-
-    public GUI(char type, Field f) throws IOException {
+    public GUI(char type, Field f, int result) throws IOException {
         this.type = type;
         this.second = 5;
+        this.result = result;
 
         finestra = new JFrame("Pong");
         if (type == 'G') {
@@ -35,38 +34,16 @@ public class GUI {
             });
             gameTimer.start();
 
-            //ogni 20 secondi viene generato un power up
-            /*powerUpTimer = new Timer(20000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    f.generatePowerUp();
-                }
-            });
-            powerUpTimer.start();*/
         }
-        else if(type == 'C'){
-            this.countdownTimer = new Timer(1000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    finestra.repaint();
-                }
-                
-            });
-            this.countdownTimer.start();
 
-            if(this.second == 0){
-                this.countdownTimer.stop();
-            }
-        }
-    
     }
 
-    public void stopGame(){
+    public void stopGame() {
         this.gameTimer.stop();
         this.finestra.dispose();
     }
 
-    public void chiudiFinestra(){
+    public void chiudiFinestra() {
         finestra.setVisible(false);
     }
 
@@ -76,16 +53,10 @@ public class GUI {
         finestra.getContentPane().setBackground(Color.BLACK);
         if (this.type == 'G') {
             finestra.add(new GamePanel(f));
-        } 
-        else {
-            boolean startGame;
-            if(this.type == 'W'){
-                startGame = false;
-            }
-            else{
-                startGame = true;
-            }
-            finestra.add(new LoadingPanel(startGame, this.second));
+        } else if (this.type == 'W') {
+            finestra.add(new LoadingPanel(true, this.second));
+        } else if (this.type == 'E') {
+            finestra.add(new EndingPanel(this.result));
         }
 
         finestra.pack();

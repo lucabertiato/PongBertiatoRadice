@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Field{
     Player playerOne;
@@ -285,9 +284,9 @@ public class Field{
         }
 
         //controllo fine gioco
-        if(playerOne.getSets() == 3){
+        if(playerOne.getSets() == 1){
             return 1;
-        } else if(playerTwo.getSets() == 3){
+        } else if(playerTwo.getSets() == 1){
             return 2;
         }
         return 0;
