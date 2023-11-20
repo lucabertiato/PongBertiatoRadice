@@ -15,7 +15,7 @@ public class ThreadUpdate implements Runnable{
         while (true) {
             try { 
                 // Codice per la connessione e l'aggiornamento del campo
-                TcpClient tcpService = new TcpClient("localhost", 667);
+                TcpClient tcpService = new TcpClient(Main.SERVER_IP, Main.PORT);
                 XML xmlService = new XML("tmp");
                 String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
                 //System.out.println(newXmlField);
