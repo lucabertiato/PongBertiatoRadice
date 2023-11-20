@@ -11,10 +11,17 @@ public class GUI {
     private Listener keyListener;
     private Timer gameTimer;
 
-    private char type; // W = waiting; G = game;
+    private char type; // W = waiting; G = game; E = ending
     private int second;
     private int result;
 
+    /**
+     * Costruttore
+     * @param type tipo finestra (waiting, game, ending)
+     * @param f eventuale campo da disegnare
+     * @param result stato gioco (0 = in corso, 1 = vittoria, 2 = sconfitta)
+     * @throws IOException
+     */
     public GUI(char type, Field f, int result) throws IOException {
         this.type = type;
         this.second = 5;
@@ -38,15 +45,25 @@ public class GUI {
 
     }
 
+    /**
+     * Stop timer del disegno del campo e chiusura finestra
+     */
     public void stopGame() {
         this.gameTimer.stop();
         this.finestra.dispose();
     }
 
+    /**
+     * Chiusura finestra
+     */
     public void chiudiFinestra() {
         finestra.setVisible(false);
     }
 
+    /**
+     * Creazione finestra
+     * @param f eventuale campo da disegnare
+     */
     public void creaFinestra(Field f) {
         finestra.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         finestra.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -54,7 +71,7 @@ public class GUI {
         if (this.type == 'G') {
             finestra.add(new GamePanel(f));
         } else if (this.type == 'W') {
-            finestra.add(new LoadingPanel(true, this.second));
+            finestra.add(new LoadingPanel());
         } else if (this.type == 'E') {
             finestra.add(new EndingPanel(this.result));
         }
@@ -63,10 +80,18 @@ public class GUI {
         finestra.setVisible(true);
     }
 
+    /**
+     * Get del keyListener
+     * @return keyListener
+     */
     public Listener getListener() {
         return this.keyListener;
     }
 
+    /**
+     * Get del frame (finestra)
+     * @return finestra
+     */
     public JFrame getFrame() {
         return this.finestra;
     }

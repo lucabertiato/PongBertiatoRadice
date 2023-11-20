@@ -13,7 +13,7 @@ public class Ball {
     //se 2 = player 2
     private int lastTouch;
 
-    /*
+    /**
      * Costruttore
      */
     Ball() {
@@ -26,8 +26,10 @@ public class Ball {
         this.lastTouch = 0;
     }
 
-    /*
+    /**
      * Disegno pallina
+     * @param g graphics
+     * @param flagColore flag colore
      */
     public void drawBall(Graphics g, char flagColore) {
         //se devo colorare di blu altrimenti colora bianco
@@ -39,6 +41,9 @@ public class Ball {
 
     }
 
+    /**
+     * Generazione pallina
+     */
     public void generateBall() {
         Random random = new Random();
         // left o right
@@ -90,6 +95,9 @@ public class Ball {
         this.angle = gen;
     }
 
+    /**
+     * Aggiornamento coordinate pallina
+     */
     public void updateBallCoordinates() {
         double val1 = Math.abs(Math.cos(this.angle));
         double val2 = Math.abs(Math.sin(this.angle));
@@ -115,6 +123,9 @@ public class Ball {
         }
     }
 
+    /**
+     * Aggiornamento coordinate PowerUp
+     */
     public void updateBallCoordinatesPowerUp() {
         //left
         if (this.directionX == 'l')
@@ -125,6 +136,10 @@ public class Ball {
         }
     }
 
+    /**
+     * Set della direzione della pallina del PowerUp
+     * @param value
+     */
     public void setDirectionXPowerUp(int value) {
         if(value == 1)
             this.directionX = 'l';
@@ -132,6 +147,9 @@ public class Ball {
             this.directionX = 'r';
     }
 
+    /**
+     * Generazione pallina PowerUp
+     */
     public void generateBallPowerUp() {
         // left o right in base all'ultimo touch della pallina
         if (this.lastTouch == 1) { // left
@@ -141,76 +159,114 @@ public class Ball {
         }
     }
 
-    /*
-     * Get della coordinata x della pallina
+    /**
+     * Get della x della pallina
+     * @return x
      */
     public double getX() {
         return this.x;
     }
 
-    /*
-     * Get della coordinata y della pallina
+    /**
+     * Get della y della pallina
+     * @return y
      */
     public double getY() {
         return this.y;
     }
 
-    /*
-     * Get ultimo giocatore che ha toccato
+    /**
+     * Get dell'ultimo tocco della pallina (per PowerUp)
+     * @return lastTouch
      */
     public int getLastTouch() {
         return this.lastTouch;
     }
 
-    /*
+    /**
      * Get del raggio della pallina
+     * @return radius
      */
     public int getRadius() {
         return this.radius;
     }
 
-    /*
+    /**
      * Get della direzione orizzontale della pallina
+     * @return directionX
      */
     public char getDirectionX() {
         return this.directionX;
     }
 
-    /*
+    /**
      * Get della direzione verticale della pallina
+     * @return directionY
      */
     public char getDirectionY() {
         return this.directionY;
     }
 
+    /**
+     * Get dell'angolo della pallina
+     * @return angle
+     */
     public int getAngle() {
         return this.angle;
     }
 
+    /**
+     * Set della direzione orizzontale della pallina
+     * @param value nuovo valore
+     */
     public void setDirectionX(char value) {
         this.directionX = value;
     }
 
+    /**
+     * Set della direzione verticale della pallina
+     * @param value nuovo valore
+     */
     public void setDirectionY(char value) {
         this.directionY = value;
     }
 
+    /**
+     * Set dell'angolo della pallina
+     * @param value nuovo valore
+     */
     public void setAngle(int value) {
         this.angle = value;
     }
 
+    /**
+     * Set dell'ultimo tocco della (per PowerUp)
+     * @param value nuovo valore
+     */
     public void setLastTouch(int touch) {
         this.lastTouch = touch;
     }
 
+    /**
+     * Set della x della pallina
+     * @param value nuovo valore
+     */
     public void setX(double x) {
         this.x = x;
     }
 
+    /**
+     * Set della y della pallina
+     * @param value nuovo valore
+     */
     public void setY(double y) {
         this.y = y;
     }
 
+    /**
+     * Set del raggio della pallina
+     * @param value nuovo valore
+     */
     public void setRadius(int radius) {
         this.radius = radius;
     }

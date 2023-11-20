@@ -3,19 +3,23 @@ import javax.swing.*;
 
 class LoadingPanel extends JPanel {
 
-    private boolean clientsConnected;
-    private int countdownTime;
-
-    public LoadingPanel(boolean bool, int s) {
-        this.clientsConnected = bool;
-        this.countdownTime = s;
+    /**
+     * Costruttore
+     */
+    public LoadingPanel() {
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
+    /**
+     * Get della dimensione della finestra
+     */
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
+    /**
+     * Disegno finestra
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);

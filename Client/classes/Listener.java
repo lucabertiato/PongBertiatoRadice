@@ -5,6 +5,9 @@ public class Listener implements KeyListener{
     //ultimo tasto premuto
     private int lastPressedKeyCode = -1;
 
+    /**
+     * Controllo della pressione di un tasto
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
@@ -12,6 +15,9 @@ public class Listener implements KeyListener{
         this.lastPressedKeyCode = keyCode;
     }
 
+    /**
+     * Controllo del rilascio di un tasto
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
@@ -21,11 +27,17 @@ public class Listener implements KeyListener{
         }
     }
 
+    /**
+     * Controllo della scrittura di un tasto
+     */
     @Override
     public void keyTyped(KeyEvent e) {
-        // Questo metodo si attiva quando si digita un tasto (ad esempio, un carattere).
     }
 
+    /**
+     * Get dell'ultimo tasto premuto
+     * @return lastPressedKeyCode
+     */
     public int getLastKeyPressed(){
         return this.lastPressedKeyCode;
     }

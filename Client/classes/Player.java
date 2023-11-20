@@ -4,9 +4,9 @@ public class Player {
     private int sets;
     private PowerUp currentPowerUp;
 
-    /*
-     * Costruttore (default per il player locale)
-    */
+    /**
+     * Costruttore di default
+     */
     public Player() {
         this.paddle = new Paddle();
         this.score = 0;
@@ -14,9 +14,9 @@ public class Player {
         this.currentPowerUp = new PowerUp();
     }
 
-    /*
-     * Costruttore (con parametri per il secondo player che avrà la racchetta
-     * dall'altra parte del campo)
+    /**
+     * Costruttore con la coordinata x per il playerTwo
+     * @param x valore della x in cui posizionarsi
      */
     public Player(int x) {
         this.paddle = new Paddle(x);
@@ -24,37 +24,41 @@ public class Player {
         this.sets = 0;
     }
 
-    /*
-     * Set del powerUp che si ha a disposizione
+    /**
+     * Set del PowerUp che si ha a disposizione
+     * @param pUp nuovo valore
      */
     public void setCurrentPowerUp(PowerUp pUp){
         this.currentPowerUp = pUp;
     }
 
-    /*
-     * Get del powerUp che si ha a disposizione
+    /**
+     * Get del PowerUp che si ha a disposizione
+     * @return currentPowerUp
      */
     public PowerUp getCurrentPowerUp(){
         return this.currentPowerUp;
     }
 
-    /*
+    /**
      * Get della racchetta
+     * @return paddle
      */
     public Paddle getPaddle() {
         return this.paddle;
     }
 
-    /*
+    /**
      * Get del punteggio
+     * @return score
      */
     public int getScore() {
         return this.score;
     }
 
-    /*
-     * Incremento punteggio
-     */
+   /**
+    * Incremento punteggio
+    */
     public void increaseScore() {
         this.score++;
     }
@@ -67,26 +71,41 @@ public class Player {
         return this.sets;
     }
 
+    /**
+     * Incremento set vinti
+     */
     public void increaseSets(){
         this.sets++;
     }
 
+    /**
+     * Reset punteggio
+     */
     public void resetScore(){
         this.score = 0;
     }
 
+    /**
+     * Set della racchetta
+     * @param p nuovo valore
+     */
     public void setPaddle(Paddle p){
         this.paddle = p;
     }
 
+    /**
+     * Set del punteggio
+     * @param score nuovo valore
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Set dei set vinti
+     * @param sets nuovo valore
+     */
     public void setSets(int sets) {
         this.sets = sets;
     }
-
-    
-
 }

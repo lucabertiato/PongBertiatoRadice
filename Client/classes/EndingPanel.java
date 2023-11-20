@@ -5,6 +5,10 @@ class EndingPanel extends JPanel {
 
     private boolean win;
 
+    /**
+     * Costruttore
+     * @param result
+     */
     public EndingPanel(int result) {
         if (result == 1) {
             this.win = true;
@@ -14,10 +18,16 @@ class EndingPanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
+    /**
+     * Get dimensione finestra
+     */
     public Dimension getPreferredSize() {
         return new Dimension(500, 500);
     }
 
+    /**
+     * Disegno finestra
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);

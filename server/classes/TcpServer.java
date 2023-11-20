@@ -121,10 +121,9 @@ public class TcpServer {
             Socket clientSocket = this.serverSocket.accept();
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            if ((clientSocket.getInetAddress()+"").equals(sortedPlayers[0])) {
+            if ((clientSocket.getInetAddress() + "").equals(sortedPlayers[0])) {
                 fieldStr = in.readLine();
-            }
-            else{
+            } else {
                 secondFieldStr = in.readLine();
             }
 
@@ -135,7 +134,7 @@ public class TcpServer {
         // System.out.println("Entrambi i client sono connessi. Inizio procedura.");
 
         // riordina campi in base a ordine iniziale di player
-       if (!((clientSockets[0].getInetAddress() + "").contains(sortedPlayers[0]))) { // disordinati
+        if (!((clientSockets[0].getInetAddress() + "").contains(sortedPlayers[0]))) { // disordinati
             Socket tmpSocket = this.clientSockets[0];
             this.clientSockets[0] = this.clientSockets[1];
             this.clientSockets[1] = tmpSocket;
@@ -144,25 +143,26 @@ public class TcpServer {
         // conversione campo
         Field tmpField;
         tmpField = xmlService.fromXML(fieldStr);
-        
-
         // inizio modifica campi
         FieldUpdater fieldUpdater = new FieldUpdater(tmpField);
-       
+
         // controlli vari
         fieldUpdater.controls();
 
-        //invio al player1
+        Field secondTmpField = xmlService.fromXML(secondFieldStr);
+        // aggiorno paddle avversaria del player1
+        tmpField.getPlayerTwo().getPaddle().setY(secondTmpField.getPlayerOne().getPaddle().getY());
+
+        // invio al player1
         PrintWriter out = new PrintWriter(clientSockets[0].getOutputStream(), true);
         out.println(xmlService.fieldToXML(tmpField));
         out.flush();
 
-        //swap informazioni
-        Field secondTmpField = xmlService.fromXML(secondFieldStr);
+        // swap informazioni
         fieldUpdater.swapInfo(secondTmpField);
         tmpField = fieldUpdater.getField();
-
-        //invio al player2
+    
+        // invio al player2
         out = new PrintWriter(clientSockets[1].getOutputStream(), true);
         out.println(xmlService.fieldToXML(tmpField));
         out.flush();
