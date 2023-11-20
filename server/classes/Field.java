@@ -180,11 +180,11 @@ public class Field{
                         .getY() <= this.playerOne.getPaddle().getY() + this.playerOne.getPaddle().getHeight())) {
             // arriva dal basso
             if (this.ball.getDirectionY() == 'u') {
-                this.ball.setAngle(this.ball.getAngle() - 90);
+                this.ball.setAngle(this.ball.getAngle() + 90);
             }
             // arriva dall'alto
             else if (this.ball.getDirectionY() == 'd') {
-                this.ball.setAngle(this.ball.getAngle() + 90);
+                this.ball.setAngle(this.ball.getAngle() - 90);
             }
             // inverte percorso sul piano x
             this.ball.setDirectionX('r');

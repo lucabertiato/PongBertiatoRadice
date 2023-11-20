@@ -21,6 +21,7 @@ public class ThreadUpdate implements Runnable{
                 //System.out.println(newXmlField);
                 Field newField = xmlService.fromXML(newXmlField);
                 field.updateField(newField);
+                System.out.println("x: "+field.getBall().getX()+" y: "+ field.getBall().getX());
                 // Aggiungi un ritardo per evitare l'overhead eccessivo
                 Thread.sleep(50);
             } catch (InterruptedException | IOException | TransformerException | ParserConfigurationException e) {

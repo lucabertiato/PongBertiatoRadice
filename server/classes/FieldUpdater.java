@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldUpdater {
-    private List<Field> fields;
+    private Field f;
 
     /**
      * Costruttore
@@ -10,73 +10,51 @@ public class FieldUpdater {
      * @param f1 campo giocatore 1
      * @param f2 campo giocatore 2
      */
-    public FieldUpdater(Field f1, Field f2) {
-        this.fields = new ArrayList<>();
-        this.fields.add(f1);
-        this.fields.add(f2);
+    public FieldUpdater(Field f) {
+        this.f = f;
     }
 
-    //scambia le informazioni fra i due campi
-    public void swapInfo() {
-        if((this.fields.get(0).getPlayerOne().getScore() > 0) || (this.fields.get(0).getPlayerTwo().getScore() > 0) || (this.fields.get(1).getPlayerOne().getScore() > 0) || (this.fields.get(1).getPlayerTwo().getScore() > 0)){
-            System.out.println("");
-        }
-        this.fields.get(0).getPlayerTwo().getPaddle().setY(this.fields.get(1).getPlayerOne().getPaddle().getY());
-        this.fields.get(1).getPlayerTwo().getPaddle().setY(this.fields.get(0).getPlayerOne().getPaddle().getY());
+    // scambia le informazioni fra i due campi
+    public void swapInfo(Field f2) {
+        Field tmp = new Field();
 
-        this.fields.get(0).getPlayerTwo().setScore(this.fields.get(1).getPlayerOne().getScore());
-        this.fields.get(1).getPlayerTwo().setScore(this.fields.get(0).getPlayerOne().getScore());
+        tmp.setPlayerOne(f2.getPlayerOne());
+        tmp.setPlayerTwo(this.f.getPlayerOne());
 
-        this.fields.get(0).getPlayerTwo().setSets(this.fields.get(1).getPlayerOne().getSets());
-        this.fields.get(1).getPlayerTwo().setSets(this.fields.get(0).getPlayerOne().getSets());
+        tmp.getPlayerOne().setScore(this.f.getPlayerTwo().getScore());
+        tmp.getPlayerTwo().setScore(this.f.getPlayerOne().getScore());
+
+        tmp.getPlayerOne().setSets(this.f.getPlayerTwo().getSets());
+        tmp.getPlayerTwo().setSets(this.f.getPlayerOne().getSets());
+
+        tmp.getPlayerOne().getPaddle().setX(1500-f2.getPlayerTwo().getPaddle().getX()-this.f.getPlayerTwo().getPaddle().getWidth());
+        tmp.getPlayerTwo().getPaddle().setX(1500-this.f.getPlayerOne().getPaddle().getX()-this.f.getPlayerOne().getPaddle().getWidth());
+
+        tmp.setBall(this.f.getBall());
+        tmp.getBall().setX(1500-this.f.getBall().getX());
+
+        this.f = tmp;
     }
 
     public void controls() {
         boolean generateBall = false;
 
-        for (int i = 0; i < this.fields.size(); i++) {
-            this.fields.get(i).getBall().updateBallCoordinates();
-            if (this.fields.get(i).checkWallHit()) {
-                generateBall = true;
-            }
-            else{
-                this.fields.get(i).checkPaddleHit();
-                this.fields.get(i).checkPowerUpBlockHit();
-                this.fields.get(i).checkPowerUpBallHit();
-            }
-        
-            // aggiorno x e y della pallina power up
-            for (int j = 0; i < this.fields.get(j).listPowerUp.size(); j++) {
-                if (this.fields.get(i).listPowerUp.get(j).getIsBallPowerUpActivate()){
-                    this.fields.get(i).listPowerUp.get(j).getBallPowerUp().updateBallCoordinatesPowerUp();
-                }
-            }
+        this.f.getBall().updateBallCoordinates();
+        if (this.f.checkWallHit()) {
+            generateBall = true;
+        } else {
+            this.f.checkPaddleHit();
         }
 
-        if(generateBall){
+        if (generateBall) {
             Ball tmpBall = new Ball();
             tmpBall.generateBall();
-            this.fields.get(0).setBall(tmpBall);
-
-            Ball tmpBall2 = new Ball(tmpBall);
-
-            //inverte pallina per secondo campo
-            if (tmpBall2.getDirectionX() == 'l') {
-                tmpBall2.setDirectionX('r');
-                tmpBall2.setX(750 + tmpBall2.getRadius());
-            } else {
-                tmpBall2.setDirectionX('l');
-                tmpBall2.setX(750 - tmpBall2.getRadius());
-            }
-            this.fields.get(1).setBall(tmpBall2);
+            this.f.setBall(tmpBall);
         }
     }
 
-    public Field getFieldOne(){
-        return this.fields.get(0);
+    public Field getField() {
+        return this.f;
     }
 
-    public Field getFieldTwo(){
-        return this.fields.get(1);
-    }
 }

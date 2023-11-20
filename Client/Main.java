@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main extends JFrame {
 
-    public static String SERVER_IP = "172.16.102.113";
+    public static String SERVER_IP = "localhost";
     public static int PORT = 667;
     public static void main(String[] args) throws IOException, InterruptedException, TransformerException, ParserConfigurationException {
         TcpClient tcpService = new TcpClient(SERVER_IP, PORT);
