@@ -20,18 +20,11 @@ class LoadingPanel extends JPanel {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
-
-        if (clientsConnected) { // avvia countdown
-            g.setColor(Color.WHITE);
-            Font customFont = new Font("Arial", Font.BOLD, 50);
-            g.setFont(customFont);
-            g.drawString(this.countdownTime+"", 100, 100);
-        } else { // attesa
-            // sfondo
-            g.setColor(Color.RED);
-            Font customFont = new Font("Arial", Font.BOLD, 50);
-            g.setFont(customFont);
-            g.drawString("Attesa connessione avversario...", 50, 50);
-        }
+        
+        // sfondo
+        g.setColor(Color.RED);
+        Font customFont = new Font("Arial", Font.BOLD, 50);
+        g.setFont(customFont);
+        g.drawString("Attesa connessione avversario...", 50, 50);
     }
 }
