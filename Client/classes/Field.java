@@ -268,7 +268,7 @@ public class Field{
         return true;
     }
 
-      /**
+    /**
      * Controllo del tocco della paddle sulla parete bassa
      * @return true se la paddle si può spostare in basso senza uscire dal campo, false se non può
      */

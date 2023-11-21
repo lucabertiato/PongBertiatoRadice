@@ -47,8 +47,9 @@ public class Field{
         this.listPowerUp.add(pD4);
     }
 
-    /*
+    /**
      * Disegno campo da gioco
+     * @param g graphics
      */
     public void drawField(Graphics g) {
         g.setColor(Color.WHITE);
@@ -89,33 +90,41 @@ public class Field{
         }
     }
 
-    /*
-     * Get del primo giocatore
+    /**
+     * Get del giocatore uno
+     * @return playerOne
      */
     public Player getPlayerOne() {
         return this.playerOne;
     }
 
-    /*
-     * Get del secondo giocatore
+    /**
+     * Get del giocatore due
+     * @return playerTwo
      */
     public Player getPlayerTwo() {
         return this.playerTwo;
     }
 
-    /*
+    /**
      * Get della pallina
+     * @return ball
      */
     public Ball getBall() {
         return this.ball;
     }
 
+    /**
+     * Get della lista di PowerUp
+     * @return listPowerUp
+     */
     public ArrayList<PowerUp> getListPowerUp(){
         return this.listPowerUp;
     }
 
-    /*
-     * Richiamo del controllo del colpo della palla a una parete
+    /**
+     * Controllo del rimbalzo sulle pareti del campo
+     * @return true se la pallina ha colpito una parete verticale (punto al giocatore), false se non lo ha fatto
      */
     public boolean checkWallHit() {
         // controllo pareti orizzontali
@@ -143,16 +152,18 @@ public class Field{
         return false;
     }
 
+    /**
+     * Controllo del colpo della pallina del PowerUp
+     */
     public void checkPowerUpBallHit() {
         if(this.ball.getLastTouch() == 1){
             
         }
     }
 
-    /*
-     * controllo se la pallina ha colpito una racchetta
-     * return true se l'ha colpita
-     * return false se non ha colpito nulla
+    /**
+     * Controllo del rimbalzo delle racchette
+     * @return true se la pallina ha colpito una racchetta, false se non lo ha fatto
      */
     public Boolean checkPaddleHit() {
         // controllo paddle avversaria
@@ -196,8 +207,7 @@ public class Field{
     }
 
     /**
-     * controllo colpo della pallina sul blocco del potenziamento
-     * @param g per disegnare la pallina powerUp
+     * Controllo sul tocco della pallina a un PowerUp
      */
     public void checkPowerUpBlockHit(){
         //per tutti i power up
@@ -227,8 +237,9 @@ public class Field{
         }
     }
 
-    /*
-     * Controllo del tocco in alto
+    /**
+     * Controllo del tocco della paddle sulla parete alta
+     * @return true se la paddle si può spostare in alto senza uscire dal campo, false se non può
      */
     public boolean checkTop() {
         // controllo alto
@@ -238,8 +249,9 @@ public class Field{
         return true;
     }
 
-    /*
-     * Controllo del tocco in basso
+    /**
+     * Controllo del tocco della paddle sulla parete bassa
+     * @return true se la paddle si può spostare in basso senza uscire dal campo, false se non può
      */
     public boolean checkDown() {
         // controllo basso
@@ -249,8 +261,9 @@ public class Field{
         return true;
     }
 
-    /*
-     * Controllo punteggio
+    /**
+     * Controllo punteggio: assegnazione punti e set e eventuale determinazione vincitore
+     * @return
      */
     public int checkScores(){
         boolean tmp = false;
@@ -282,8 +295,8 @@ public class Field{
         return 0;
     }
 
-    /*
-     * genera la posizione e la tipologia del power up
+    /**
+     * Generazione PowerUp
      */
     public void generatePowerUp(){
         Random random = new Random();
@@ -308,29 +321,33 @@ public class Field{
         this.listPowerUp.get(pos).setIsActivate(true);
     }
 
-    /*
-     * Set giocatore 1
+    /**
+     * Set del giocatore uno
+     * @param p nuovo valore
      */
     public void setPlayerOne(Player p){
         this.playerOne = p;
     }
 
-    /*
-     * Set giocatore 2
+    /**
+     * Set del giocatore due
+     * @param p nuovo valore
      */
     public void setPlayerTwo(Player p){
         this.playerTwo = p;
     }
 
-    /*
-     * Set pallina
+    /**
+     * Set della pallina
+     * @param b nuovo valore
      */
     public void setBall(Ball b){
         this.ball = b;
     }
 
-    /*
-     * Set lista di powerUp
+    /**
+     * Set della lista di power up
+     * @param list nuovo valore
      */
     public void setListPowerUp(ArrayList<PowerUp> list){
         this.listPowerUp = list;

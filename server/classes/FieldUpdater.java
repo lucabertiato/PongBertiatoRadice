@@ -5,8 +5,7 @@ public class FieldUpdater {
     private Field f;
 
     /**
-     * Costruttore
-     * 
+     * Costruttore con parametri
      * @param f1 campo giocatore 1
      * @param f2 campo giocatore 2
      */
@@ -14,7 +13,10 @@ public class FieldUpdater {
         this.f = f;
     }
 
-    // scambia le informazioni fra i due campi
+    /**
+     * Scambia le inforamzioni fra i due campi per la visualizzazione a specchio
+     * @param f2 campo da cui prendere i valori
+     */
     public void swapInfo(Field f2) {
         Field tmp = new Field();
 
@@ -36,6 +38,9 @@ public class FieldUpdater {
         this.f = tmp;
     }
 
+    /**
+     * controlli della posizione dalla pallina dopo un moviemnto
+     */
     public void controls() {
         boolean generateBall = false;
 
@@ -53,6 +58,10 @@ public class FieldUpdater {
         }
     }
 
+    /**
+     * Get del campo aggiornato
+     * @return campo aggiornato
+     */
     public Field getField() {
         return this.f;
     }

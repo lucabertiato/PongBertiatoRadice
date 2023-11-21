@@ -6,10 +6,18 @@ import javax.xml.transform.TransformerException;
 public class ThreadUpdate implements Runnable{
     private Field field;
 
+    /**
+     * Costruttore di default
+     * @param f campo da gioco che subisce gli aggiornamenti
+     */
     public ThreadUpdate(Field f){
         this.field = f;
     }
 
+    /*
+     * Operazione che esegue il thread
+     * Socket in ascolto per inviare e ricevere gli aggiornamenti
+     */
     @Override
     public void run() {
         while (true) {
@@ -21,7 +29,7 @@ public class ThreadUpdate implements Runnable{
                 //System.out.println(newXmlField);
                 Field newField = xmlService.fromXML(newXmlField);
                 field.updateField(newField);
-                System.out.println("x: "+field.getBall().getX()+" y: "+ field.getBall().getX());
+                //System.out.println("x: "+field.getBall().getX()+" y: "+ field.getBall().getX());
                 // Aggiungi un ritardo per evitare l'overhead eccessivo
                 Thread.sleep(50);
             } catch (InterruptedException | IOException | TransformerException | ParserConfigurationException e) {

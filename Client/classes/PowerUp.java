@@ -47,7 +47,7 @@ public class PowerUp {
 
     /**
      * Disegno del blocco del PowerUp
-     * @param g
+     * @param g graphics
      */
     public void drawPowerUp(Graphics g) {
         if(this.isActivate)
@@ -75,14 +75,15 @@ public class PowerUp {
 
     /**
      * Get della coordinata x
-     * @return x
+     * @return x coordinata x del power up
      */
     public int getX() {
         return x;
     }
 
-    /*
-     * Set della coordinata x 
+    /**
+     * Set della coordinata X
+     * @param x coordinata x del power up
      */
     public void setX(int x) {
         this.x = x;
@@ -90,14 +91,15 @@ public class PowerUp {
 
     /**
      * Get della coordinata y
-     * @return y
+     * @return y coordinata y del power up
      */
     public int getY() {
         return y;
     }
     
-    /*
+    /**
      * Set della coordinata y 
+     * @param y coordinata y del power up
      */
     public void setY(int y) {
         this.y = y;
@@ -105,7 +107,7 @@ public class PowerUp {
 
     /**
      * Get della pallina del PowerUp
-     * @return ballPowerUp
+     * @return ballPowerUp palla power up
      */
     public Ball getBallPowerUp(){
         return this.ballPowerUp;
@@ -113,14 +115,15 @@ public class PowerUp {
     
     /**
      * Get della lunghezza
-     * @return width
+     * @return width lunghezza quadrato power up
      */
     public int getWidth() {
         return width;
     }
 
-    /*
-     * set della grandezza del quadrato
+    /**
+     * Set della lunghezza del quadrato del power up
+     * @param width
      */
     public void setWidth(int width) {
         this.width = width;
@@ -128,7 +131,7 @@ public class PowerUp {
 
     /**
      * Get del tipo di PowerUp
-     * @return type
+     * @return type tipo di power up
      */
     public char getType() {
         return type;
@@ -136,58 +139,64 @@ public class PowerUp {
 
     /**
      * Set tipo PowerUp
-     * @param type nuovo valore (A, B, C o D)
+     * @param type nuovo tipo del power up (A, o B)
      */
     public void setType(char type) {
-        //TODO in base al carattere metto anche l'icona del potenziamento
-        if(type == 'A' || type == 'B' || type == 'C' || type == 'D')
+        if(type == 'A' || type == 'B')
             this.type = type;
     }
 
     /**
-     * Get dello stato del potenziamento
-     * @return isActivate
+     * Get dello stato del power up
+     * @return stato del power up
      */
     public Boolean getIsActivate() {
         return isActivate;
     }
 
-    /*
-     * set stato del potenziamento
+    /**
+     * Set dello stato del power up
+     * @param isActivate nuovo stato del power up
      */
     public void setIsActivate(Boolean isActivate) {
         this.isActivate = isActivate;
     }
 
     /**
-     * Get dello stato della pallina
-     * @return isBallActivate
+     * Get dello stato della pallinadel power up
+     * @return stato della pallina (esistente o meno)  
      */
     public Boolean getIsBallPowerUpActivate() {
         return this.isBallActivate;
     }
-    /*
-     * set stato della pallina del potenziamento
+    /**
+     * Set dello stato della pallina del power up
+     * @param isBallActivate nuovo stato della pallina (esistente o meno)  
      */
     public void setIsBallPowerUpActivate(Boolean isBallActivate) {
         this.isBallActivate = isBallActivate;
     }
 
     /**
-     * Get stato PowerUp
-     * @return isValid
+     * Get stato PowerUp 
+     * @return isValid se è attivo o meno
      */
     public Boolean getIsValid() {
         return isValid;
     }
 
-    /*
-     * set stato del potenziamento
+    /**
+     * Set dello stato del power up
+     * @param isValid nuovo stato
      */
     public void setIsValid(Boolean isValid) {
         this.isActivate = isValid;
     }
 
+    /**
+     * Set dell'immagine del power up
+     * @param img nuova immagine
+     */
     public void setImg(String img) {
         this.img = img;
     }
