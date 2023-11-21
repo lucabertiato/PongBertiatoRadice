@@ -7,8 +7,8 @@ public class Paddle {
     private int width;
     private int height;
 
-    /*
-     * Costruttore (default)
+    /**
+     * Costruttore di default
      */
     public Paddle() {
         this.width = 25;
@@ -28,8 +28,9 @@ public class Paddle {
         this.y = (500/2)-(this.height/2);
     }
 
-    /*
+    /**
      * Disegno racchetta
+     * @param g graphics
      */
     public void drawPaddle(Graphics g) {
        // g.setColor(Color.WHITE);

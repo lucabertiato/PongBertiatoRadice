@@ -19,10 +19,19 @@ import org.xml.sax.InputSource;
 public class XML {
     private String tmpFileName;
 
+    /**
+     * Costruttore con parametri
+     * @param name nome file XML
+     */
     public XML(String name){
         this.tmpFileName = name;
     }
 
+    /**
+     * Da una stringa XML tira fuori un oggetto campo
+     * @param xml stringa xml
+     * @return nuovo campo ricevuto
+     */
     public Field fromXML(String xml) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -45,6 +54,12 @@ public class XML {
         }
     }
 
+    /**
+     * Crea un oggetto giocatore partendo da XML
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param elementName nome elemento
+     * @return oggetto Player
+     */
     public Player parsePlayerElement(Element parentElement, String elementName) {
         Element playerElement = getChildElement(parentElement, elementName);
 
@@ -61,6 +76,12 @@ public class XML {
         return null;
     }
 
+    /**
+     * Crea un oggetto Paddle partendo da XML
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param elementName nome elemento
+     * @return oggetto Paddle
+     */
     public Paddle parsePaddleElement(Element parentElement, String elementName) {
         Element paddleElement = getChildElement(parentElement, elementName);
 
@@ -77,6 +98,12 @@ public class XML {
         return null;
     }
 
+    /**
+     * Crea un oggetto Ball partendo da XML
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param elementName nome elemento
+     * @return oggetto Ball
+     */
     public Ball parseBallElement(Element parentElement, String elementName) {
         Element ballElement = getChildElement(parentElement, elementName);
 
@@ -96,6 +123,12 @@ public class XML {
         return null;
     }
 
+    /**
+     * Crea una lista di power up partendo da XML
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param elementName nome elemento
+     * @return lista di oggetti di power up
+     */
     public ArrayList<PowerUp> parsePowerUps(Element parentElement, String elementName) {
         Element powerUpsElement = getChildElement(parentElement, elementName);
 
@@ -117,6 +150,12 @@ public class XML {
         return null;
     }
 
+    /**
+     * Crea un oggetto PowerUp partendo da XML
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param elementName nome elemento
+     * @return oggetto Paddle
+     */
     public PowerUp parsePowerUpElement(Element parentElement, String elementName) {
         Element powerUpElement = getChildElement(parentElement, elementName);
 
@@ -136,6 +175,12 @@ public class XML {
         return null;
     }
 
+    /**
+     * Prendi un nodo figlio
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param elementName nome elemento
+     * @return elemento identificato dal nome dalla lista
+     */
     public Element getChildElement(Element parentElement, String childElementName) {
         NodeList nodeList = parentElement.getElementsByTagName(childElementName);
 
@@ -146,6 +191,14 @@ public class XML {
         return null;
     }
 
+    /**
+     * Metodo che prende valore del nodo figlio
+     * @param <T> tipo valore
+     * @param parentElement elemento padre da cui prendere il figlio
+     * @param childElementName nome elemento 
+     * @param defaultValue valore di default cha ha il figlio
+     * @return valore di default 
+     */
     public <T> T getChildElementValue(Element parentElement, String childElementName, T defaultValue) {
         Element childElement = getChildElement(parentElement, childElementName);
 
@@ -157,6 +210,13 @@ public class XML {
         return defaultValue;
     }
 
+    /**
+     * Converti una stringa in un altro tipo
+     * @param <T> tipo valore
+     * @param value valore da convertire
+     * @param defaultValue valore di dafault
+     * @return valore convertito
+     */
     public <T> T convertStringToType(String value, T defaultValue) {
         if (value == null || value.isEmpty()) {
             return defaultValue;
@@ -177,6 +237,13 @@ public class XML {
         }
     }
 
+    /**
+     * Converti campo in una stringa XML
+     * @param field oggetto da convertire
+     * @return stringa XML che contiene il campo
+     * @throws TransformerException
+     * @throws ParserConfigurationException
+     */
      public String fieldToXML(Field field) throws TransformerException, ParserConfigurationException {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -212,6 +279,13 @@ public class XML {
         }
     }
 
+    /**
+     * Creo un elemento giocatore per poi inserirlo nella stringa XML
+     * @param doc document per creare l'element
+     * @param elementName nome che assume l'elemento
+     * @param player oggetto da cui creare l'element
+     * @return element XML
+     */
     public Element createPlayerElement(Document doc, String elementName, Player player) {
         Element playerElement = doc.createElement(elementName);
 
@@ -234,6 +308,13 @@ public class XML {
         return playerElement;
     }
 
+    /**
+     * Creo un elemento paddle per poi inserirlo nella stringa XML
+     * @param doc document per creare l'element
+     * @param elementName nome che assume l'elemento
+     * @param paddle oggetto da cui creare l'element
+     * @return element XML
+     */
     public Element createPaddleElement(Document doc, String elementName, Paddle paddle) {
         Element paddleElement = doc.createElement(elementName);
 
@@ -256,6 +337,13 @@ public class XML {
         return paddleElement;
     }
 
+    /**
+     * Creo un elemento ball per poi inserirlo nella stringa XML
+     * @param doc document per creare l'element
+     * @param elementName nome che assume l'elemento
+     * @param ball oggetto da cui creare l'element
+     * @return element XML
+     */
     public Element createBallElement(Document doc, String elementName, Ball ball) {
 
         Element ballElement = doc.createElement(elementName);
@@ -291,6 +379,13 @@ public class XML {
         return ballElement;
     }
 
+    /**
+     * Creo un elemento powerUp per poi inserirlo nella stringa XML
+     * @param doc document per creare l'element
+     * @param elementName nome che assume l'elemento
+     * @param powerUp oggetto da cui creare l'element
+     * @return element XML
+     */
     public Element createPowerUpElement(Document doc, String elementName, PowerUp powerUp) {
         Element powerUpElement = doc.createElement(elementName);
     

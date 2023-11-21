@@ -13,9 +13,9 @@ public class PowerUp {
     private Ball ballPowerUp;
     private Boolean isBallActivate;
 
-    /*
-     * Costruttore (default)
-    */
+   /**
+     * Costruttore di default
+     */
     public PowerUp() {
         this.x = 500;
         this.y = 0;
@@ -28,9 +28,10 @@ public class PowerUp {
         this.isBallActivate = false;
     }
 
-    /*
-     * Costruttore (con parametri)
-     * con la definizione delle coordinate
+    /**
+     * Costruttore con parametri coordinate
+     * @param y y del PowerUp
+     * @param x x del PowerUp
      */
     public PowerUp(int y, int x) {
         this.x = x;
@@ -44,135 +45,161 @@ public class PowerUp {
         this.isBallActivate = false;
     }
 
-    /*
-     * Disegno il quadrato del potenziamento
-     * disegna solo se il parametro visualizza è true
+    
+    /**
+     * Disegno del blocco del PowerUp
+     * @param g graphics
      */
     public void drawPowerUp(Graphics g) {
         if(this.isActivate)
             g.fillRect(this.x, this.y, this.width, this.width);
     }
 
-    /*
-     * Set coordinate pallina potenziamento
+    /**
+     * Set coordinate pallina del PowerUp
+     * @param x x della pallina
+     * @param y y della pallina
      */
     public void setBallPowerUpCoordinates(int x, int y){
         this.ballPowerUp.setX(x);
         this.ballPowerUp.setY(y);
     }
 
-    /*
-     * Disegno la pallina del potenziamento
-     */
+   /**
+    * Disegno della pallina del potenziamento
+    * @param g graphics
+    */
     public void drawBallPowerUp(Graphics g){
         if(this.isBallActivate)
             this.ballPowerUp.drawBall(g, 'b');
     }
 
-    /*
-     * Get della coordinata x 
+    /**
+     * Get della coordinata x
+     * @return x coordinata x del power up
      */
     public int getX() {
         return x;
     }
-    /*
-     * Set della coordinata x 
+
+    /**
+     * Set della coordinata X
+     * @param x coordinata x del power up
      */
     public void setX(int x) {
         this.x = x;
     }
 
-    /*
-     * Get della coordinata y 
+    /**
+     * Get della coordinata y
+     * @return y coordinata y del power up
      */
     public int getY() {
         return y;
     }
-    /*
+
+    /**
      * Set della coordinata y 
+     * @param y coordinata y del power up
      */
     public void setY(int y) {
         this.y = y;
     }
 
+    /**
+     * Get della pallina del PowerUp
+     * @return ballPowerUp palla power up
+     */
     public Ball getBallPowerUp(){
         return this.ballPowerUp;
     }
     
-    /*
-     * get della grandezza del quadrato
+     /**
+     * Get della lunghezza
+     * @return width lunghezza quadrato power up
      */
     public int getWidth() {
         return width;
     }
-    /*
-     * set della grandezza del quadrato
+
+    /**
+     * Set della lunghezza del quadrato del power up
+     * @param width
      */
     public void setWidth(int width) {
         this.width = width;
     }
 
-    /*
-     * get tipo power up
+    /**
+     * Get del tipo di PowerUp
+     * @return type tipo di power up
      */
     public char getType() {
         return type;
     }
-    /*
-     * set tipo power up con controlli
-     *
-    * CARATTERI POSSIBILI
-    * A
-    * B
-    * C
-    * D
-    */
+
+    /**
+     * Set tipo PowerUp
+     * @param type nuovo tipo del power up (A, o B)
+     */
     public void setType(char type) {
         //TODO in base al carattere metto anche l'icona del potenziamento
         if(type == 'A' || type == 'B' || type == 'C' || type == 'D')
             this.type = type;
     }
 
-    /*
-     * get stato del potenziamento
+    /**
+     * Get dello stato del power up
+     * @return stato del power up
      */
     public Boolean getIsActivate() {
         return isActivate;
     }
-    /*
-     * set stato del potenziamento
+    
+    /**
+     * Set dello stato del power up
+     * @param isActivate nuovo stato del power up
      */
     public void setIsActivate(Boolean isActivate) {
         this.isActivate = isActivate;
     }
 
-    /*
-     * get stato della pallina del potenziamento
+    /**
+     * Get dello stato della pallinadel power up
+     * @return stato della pallina (esistente o meno)  
      */
     public Boolean getIsBallPowerUpActivate() {
         return this.isBallActivate;
     }
-    /*
-     * set stato della pallina del potenziamento
+    /**
+     * Set dello stato della pallina del power up
+     * @param isBallActivate nuovo stato della pallina (esistente o meno)  
      */
     public void setIsBallPowerUpActivate(Boolean isBallActivate) {
         this.isBallActivate = isBallActivate;
     }
 
 
-    /*
-     * get stato del potenziamento
+    /**
+     * Get stato PowerUp 
+     * @return isValid se è attivo o meno
      */
     public Boolean getIsValid() {
         return isValid;
     }
-    /*
-     * set stato del potenziamento
+
+     /**
+     * Set dello stato del power up
+     * @param isValid nuovo stato
      */
     public void setIsValid(Boolean isValid) {
         this.isActivate = isValid;
     }
 
+    /**
+     * Set dell'immagine del power up
+     * @param img nuova immagine
+     */
     public void setImg(String img) {
         this.img = img;
     }

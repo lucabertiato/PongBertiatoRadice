@@ -111,6 +111,14 @@ public class TcpServer {
         this.serverSocket.close();
     }
 
+    /**
+     * Aggiorna i campi inviati dai client e gli rinvia indietro
+     * @param sortedPlayers ordine ip giocatori da mantenere
+     * @param xmlService classe che si occupa del parsing xml
+     * @throws IOException
+     * @throws TransformerException
+     * @throws ParserConfigurationException
+     */
     public void updateFields(String[] sortedPlayers, XML xmlService)
             throws IOException, TransformerException, ParserConfigurationException {
         String fieldStr = "";
