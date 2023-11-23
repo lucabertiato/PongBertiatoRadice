@@ -29,10 +29,12 @@ public class TcpClient {
      * Ricezione messaggio di avvio del gioco
      * @throws IOException
      */
-    public void startGame() throws IOException {
+    public int startGame() throws IOException {
         this.response = in.readLine();
         System.out.println("Messaggio ricevuto: " + response);
         clientSocket.close();
+        String[] tmp = this.response.split(";");
+        return Integer.parseInt(tmp[1]);
     }
 
     /**
@@ -52,8 +54,8 @@ public class TcpClient {
      * @return messaggio inviato
      * @throws IOException
      */
-    public String updateField(String xml) throws IOException {
-        out.println(xml);
+    public String updateField(String xml, int numPlayer) throws IOException {
+        out.println(xml+";"+numPlayer);
         xml = in.readLine();
         clientSocket.close();
         return xml;

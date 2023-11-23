@@ -12,7 +12,7 @@ public class Ball {
     //se 1 = player 1
     //se 2 = player 2
     private int lastTouch;
-    private static int BALL_SPEED = 10;
+    private static int BALL_SPEED = 20;
 
     /*
      * Costruttore

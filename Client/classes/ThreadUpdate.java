@@ -5,13 +5,16 @@ import javax.xml.transform.TransformerException;
 
 public class ThreadUpdate implements Runnable{
     private Field field;
+    private int playerNumber;
 
     /**
      * Costruttore di default
      * @param f campo da gioco che subisce gli aggiornamenti
+     * @param n numero del giocatore
      */
-    public ThreadUpdate(Field f){
+    public ThreadUpdate(Field f, int n){
         this.field = f;
+        this.playerNumber = n;
     }
 
     /*
@@ -25,7 +28,7 @@ public class ThreadUpdate implements Runnable{
                 // Codice per la connessione e l'aggiornamento del campo
                 TcpClient tcpService = new TcpClient(Main.SERVER_IP, Main.PORT);
                 XML xmlService = new XML("tmp");
-                String newXmlField = tcpService.updateField(xmlService.fieldToXML(field));
+                String newXmlField = tcpService.updateField(xmlService.fieldToXML(field), this.playerNumber);
                 //System.out.println(newXmlField);
                 Field newField = xmlService.fromXML(newXmlField);
                 field.updateField(newField);

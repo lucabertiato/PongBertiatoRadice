@@ -15,7 +15,7 @@ public class Main extends JFrame {
 
         GUI gui = new GUI('W', null, 0);
         gui.creaFinestra(null);
-        tcpService.startGame();
+        int numPlayer = tcpService.startGame();
         gui.chiudiFinestra();
 
 
@@ -33,7 +33,7 @@ public class Main extends JFrame {
         // ridisegnato il campo aggiornato
         int game = 0;
 
-        Thread updateThread = new Thread(new ThreadUpdate(field));
+        Thread updateThread = new Thread(new ThreadUpdate(field, numPlayer));
         updateThread.start();
         
      

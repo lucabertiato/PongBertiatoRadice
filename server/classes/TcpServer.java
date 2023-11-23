@@ -46,9 +46,11 @@ public class TcpServer {
 
         System.out.println("Entrambi i client sono connessi. Invio il messaggio di avvio.");
 
+        int i = 0;
         for (Socket clientSocket : this.clientSockets) {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            out.println("AVVIO");
+            out.println("AVVIO;"+i);
+            i++;
         }
 
         // chiude i socket dei client
@@ -129,24 +131,28 @@ public class TcpServer {
             Socket clientSocket = this.serverSocket.accept();
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-            if ((clientSocket.getInetAddress() + "").equals(sortedPlayers[0])) {
-                fieldStr = in.readLine();
+            String[] tmp = (in.readLine()).split(";");
+            int numPlayer = Integer.parseInt(tmp[1]);
+            
+            if (numPlayer == 0) {
+                fieldStr = tmp[0];
             } else {
-                secondFieldStr = in.readLine();
+                secondFieldStr = tmp[0];
             }
 
-            clientSockets[this.connectedClients] = clientSocket;
+            clientSockets[numPlayer] = clientSocket;
             this.connectedClients++;
         }
 
         // System.out.println("Entrambi i client sono connessi. Inizio procedura.");
 
-        // riordina campi in base a ordine iniziale di player
+       /*  // riordina campi in base a ordine iniziale di player
         if (!((clientSockets[0].getInetAddress() + "").contains(sortedPlayers[0]))) { // disordinati
             Socket tmpSocket = this.clientSockets[0];
             this.clientSockets[0] = this.clientSockets[1];
             this.clientSockets[1] = tmpSocket;
         }
+        */
 
         // conversione campo
         Field tmpField;

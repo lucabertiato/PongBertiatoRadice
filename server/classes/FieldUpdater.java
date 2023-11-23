@@ -45,6 +45,9 @@ public class FieldUpdater {
         boolean generateBall = false;
 
         this.f.getBall().updateBallCoordinates();
+        if(this.f.getBall().getX() >= 299 && this.f.getBall().getX() <= 301){
+            System.out.println("stop");
+        }
         if (this.f.checkWallHit()) {
             generateBall = true;
         } else {
