@@ -6,12 +6,10 @@ public class PowerUp {
     private int y;
     private int width;
     private char type;
-    private Boolean isActivate;
-    private String img;
-    private Boolean isValid;
     //pallina che esce dopo aver colpito il blocco
     private Ball ballPowerUp;
     private Boolean isBallActivate;
+    private long timeCreate;
 
     /**
      * Costruttore di default
@@ -21,11 +19,9 @@ public class PowerUp {
         this.y = 0;
         this.type = ' ';
         this.width = 35;
-        this.isActivate = false;
-        this.img = "";
-        this.isValid = false;
         this.ballPowerUp = new Ball();
         this.isBallActivate = false;
+        this.timeCreate = System.currentTimeMillis();
     }
 
     /**
@@ -38,11 +34,9 @@ public class PowerUp {
         this.y = y;
         this.width = 35;
         this.type = ' ';
-        this.isActivate = false;
-        this.img = "";
-        this.isValid = false;
         this.ballPowerUp = new Ball();
         this.isBallActivate = false;
+        this.timeCreate = System.currentTimeMillis();
     }
 
     /**
@@ -50,7 +44,7 @@ public class PowerUp {
      * @param g graphics
      */
     public void drawPowerUp(Graphics g) {
-        if(this.isActivate)
+        //if(this.isActivate)
             g.fillRect(this.x, this.y, this.width, this.width);
     }
 
@@ -147,22 +141,6 @@ public class PowerUp {
     }
 
     /**
-     * Get dello stato del power up
-     * @return stato del power up
-     */
-    public Boolean getIsActivate() {
-        return isActivate;
-    }
-
-    /**
-     * Set dello stato del power up
-     * @param isActivate nuovo stato del power up
-     */
-    public void setIsActivate(Boolean isActivate) {
-        this.isActivate = isActivate;
-    }
-
-    /**
      * Get dello stato della pallinadel power up
      * @return stato della pallina (esistente o meno)  
      */
@@ -178,28 +156,18 @@ public class PowerUp {
     }
 
     /**
-     * Get stato PowerUp 
-     * @return isValid se è attivo o meno
+     * Set dell'ora di creazione
+     * @param x nuovo valore
      */
-    public Boolean getIsValid() {
-        return isValid;
+    public void setTimeCreate(long time) {
+        this.timeCreate = time;
     }
 
     /**
-     * Set dello stato del power up
-     * @param isValid nuovo stato
+     * Get dell'ora di creazione
+     * @return ora di creazione
      */
-    public void setIsValid(Boolean isValid) {
-        this.isActivate = isValid;
+    public long getTimeCreate() {
+        return this.timeCreate;
     }
-
-    /**
-     * Set dell'immagine del power up
-     * @param img nuova immagine
-     */
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    
 }

@@ -19,7 +19,7 @@ public class Main extends JFrame {
         gui.chiudiFinestra();
 
 
-        // gioco effettivo
+        //gioco effettivo
         //ricezione field iniziale da server
         Thread.sleep(5);
         tcpService = new TcpClient(SERVER_IP, PORT);
@@ -40,6 +40,7 @@ public class Main extends JFrame {
         while (game == 0) {
             int lastKey = gui.getListener().getLastKeyPressed();
             if (lastKey == KeyEvent.VK_W) {
+                //controllo se la racchetta esce dal campo
                 if (field.checkTop()) {
                     field.getPlayerOne().getPaddle().setY('W');
                 }

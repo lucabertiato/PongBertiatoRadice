@@ -1,6 +1,4 @@
 import java.io.*;
-import java.net.*;
-import java.util.LinkedList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -16,6 +14,8 @@ public class Server {
         //campo iniziale
         Field field = new Field();
         field.getBall().generateBall();
+        //genero il primo powerUp
+        field.generatePowerUp();
         tcpService = new TcpServer();
         XML xmlService = new XML("tmp");
         tcpService.sendGeneratedField(xmlService.fieldToXML(field), xmlService);

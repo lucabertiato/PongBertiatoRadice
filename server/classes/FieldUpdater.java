@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class FieldUpdater {
     private Field f;
 
@@ -35,6 +32,11 @@ public class FieldUpdater {
         tmp.setBall(this.f.getBall());
         tmp.getBall().setX(1500-this.f.getBall().getX());
 
+        tmp.setListPowerUp(this.f.listPowerUp);
+        for(int i = 0; i < tmp.getListPowerUp().size(); i++){
+            tmp.getListPowerUp().get(i).setX(1500-this.f.getListPowerUp().get(i).getX());
+        }
+
         this.f = tmp;
     }
 
@@ -53,6 +55,7 @@ public class FieldUpdater {
         } else {
             this.f.checkPaddleHit();
         }
+        this.f.checkPowerUpBlockHit();
 
         if (generateBall) {
             Ball tmpBall = new Ball();

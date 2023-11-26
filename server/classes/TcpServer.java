@@ -91,9 +91,11 @@ public class TcpServer {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             out.println(xml);
             out.flush();
+            System.out.println(xml);
 
             // l'altro client deve avere la pallina invertita
             Field tmp = xmlService.fromXML(xml);
+            
             if (tmp.getBall().getDirectionX() == 'l') {
                 tmp.getBall().setDirectionX('r');
                 tmp.getBall().setX(750);
@@ -164,7 +166,7 @@ public class TcpServer {
         fieldUpdater.controls();
 
         Field secondTmpField = xmlService.fromXML(secondFieldStr);
-        // aggiorno paddle avversaria del player1
+        //aggiorno paddle avversaria del player1
         tmpField.getPlayerTwo().getPaddle().setY(secondTmpField.getPlayerOne().getPaddle().getY());
 
         // invio al player1

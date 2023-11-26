@@ -98,7 +98,7 @@ public class Field{
         this.playerOne = newField.getPlayerOne();
         this.playerTwo = newField.getPlayerTwo();
         this.ball = newField.getBall();
-        //this.listPowerUp = newField.getListPowerUp();
+        this.listPowerUp = newField.getListPowerUp();
     }
 
     /**
@@ -232,7 +232,7 @@ public class Field{
         //per tutti i power up
         for(int i = 0; i < this.listPowerUp.size(); i++){
             //solo se è disponibile
-            if(this.listPowerUp.get(i).getIsActivate()){
+            
                 //controllo della collisione tra pallina e quadrato del power up
                 if ((this.ball.getX() + this.ball.getRadius() >= this.listPowerUp.get(i).getX() && 
                 this.ball.getX() + this.ball.getRadius() <= this.listPowerUp.get(i).getX() + this.listPowerUp.get(i).getWidth())
@@ -244,7 +244,7 @@ public class Field{
                     //se last touch != 0
                     if(this.ball.getLastTouch() != 0){
                         //lo rendo non più disponibile e attivo l'effetto/potenziamento
-                        this.listPowerUp.get(i).setIsActivate(false);
+                        this.listPowerUp.remove(i);
                         //il blocco è stato rotto quindi imposto le coordinate dela pallina
                         //lo rendo attivo
                         this.listPowerUp.get(i).setIsBallPowerUpActivate(true);
@@ -252,7 +252,6 @@ public class Field{
                         this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).getX(), this.listPowerUp.get(i).getY());                     
                     }
                 }
-            }
         }
     }
 
@@ -337,8 +336,6 @@ public class Field{
                     this.listPowerUp.get(pos).setType('D');
                     break;
             }
-            //lo rendo visibile
-            this.listPowerUp.get(pos).setIsActivate(true);
         }
     }
 

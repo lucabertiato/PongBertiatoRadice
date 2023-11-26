@@ -42,9 +42,9 @@ public class Paddle {
      */
     public void setY(char direction) {
         if (direction == 'W') { // alto
-            this.y -= 10;
+            this.y -= 20;
         } else if (direction == 'S') { // basso
-            this.y += 10;
+            this.y += 20;
         }
     }
 

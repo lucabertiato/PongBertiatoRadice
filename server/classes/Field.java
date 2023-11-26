@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Field{
+public class Field {
     Player playerOne;
     Player playerTwo;
     Ball ball;
@@ -18,15 +18,15 @@ public class Field{
         this.playerTwo = new Player(1500 - (this.playerOne.getPaddle().getX()) - 25);
         this.ball = new Ball();
         this.listPowerUp = new ArrayList<PowerUp>();
-        //riempi il vettore di powerUp
-        this.fillListPowerUp();
+        // riempi il vettore di powerUp
+        // this.fillListPowerUp();
     }
 
     /*
      * riempi il vettore con tutti e 4 i possibili power up
      */
-    public void fillListPowerUp(){
-        //aggiugni powerup a sinistra
+    public void fillListPowerUp() {
+        // aggiugni powerup a sinistra
         PowerUp pA = new PowerUp(75, 500);
         PowerUp pB = new PowerUp(250, 500);
         PowerUp pC = new PowerUp(425, 500);
@@ -36,7 +36,7 @@ public class Field{
         this.listPowerUp.add(pC);
         this.listPowerUp.add(pD);
 
-        //power up a destra
+        // power up a destra
         PowerUp pA1 = new PowerUp(75, 900);
         PowerUp pB2 = new PowerUp(250, 900);
         PowerUp pC3 = new PowerUp(425, 900);
@@ -49,6 +49,7 @@ public class Field{
 
     /**
      * Disegno campo da gioco
+     * 
      * @param g graphics
      */
     public void drawField(Graphics g) {
@@ -77,21 +78,22 @@ public class Field{
             g.drawLine(1500 / 2, i, 1500 / 2, i + 10);
         }
 
-        //disegna vettore powerup
-        //controllo nella funzione
+        // disegna vettore powerup
+        // controllo nella funzione
         for (PowerUp powerUp : this.listPowerUp) {
             powerUp.drawPowerUp(g);
         }
 
-        //disegna vettore palline powerup
-        //controllo nella funzione
-        for(int i = 0; i < this.listPowerUp.size(); i++){
+        // disegna vettore palline powerup
+        // controllo nella funzione
+        for (int i = 0; i < this.listPowerUp.size(); i++) {
             this.listPowerUp.get(i).drawBallPowerUp(g);
         }
     }
 
     /**
      * Get del giocatore uno
+     * 
      * @return playerOne
      */
     public Player getPlayerOne() {
@@ -100,6 +102,7 @@ public class Field{
 
     /**
      * Get del giocatore due
+     * 
      * @return playerTwo
      */
     public Player getPlayerTwo() {
@@ -108,6 +111,7 @@ public class Field{
 
     /**
      * Get della pallina
+     * 
      * @return ball
      */
     public Ball getBall() {
@@ -116,15 +120,18 @@ public class Field{
 
     /**
      * Get della lista di PowerUp
+     * 
      * @return listPowerUp
      */
-    public ArrayList<PowerUp> getListPowerUp(){
+    public ArrayList<PowerUp> getListPowerUp() {
         return this.listPowerUp;
     }
 
     /**
      * Controllo del rimbalzo sulle pareti del campo
-     * @return true se la pallina ha colpito una parete verticale (punto al giocatore), false se non lo ha fatto
+     * 
+     * @return true se la pallina ha colpito una parete verticale (punto al
+     *         giocatore), false se non lo ha fatto
      */
     public boolean checkWallHit() {
         // controllo pareti orizzontali
@@ -140,11 +147,11 @@ public class Field{
         if (this.ball.getX() <= 0 || this.ball.getX() + (this.ball.getRadius() * 2) >= 1500) {
             if (this.ball.getX() <= 0) {
                 this.playerTwo.increaseScore();
-                //resetto last touch della pallina
+                // resetto last touch della pallina
                 this.ball.setLastTouch(0);
             } else {
                 this.playerOne.increaseScore();
-                //resetto last touch della pallina
+                // resetto last touch della pallina
                 this.ball.setLastTouch(0);
             }
             return true;
@@ -156,13 +163,14 @@ public class Field{
      * Controllo del colpo della pallina del PowerUp
      */
     public void checkPowerUpBallHit() {
-        if(this.ball.getLastTouch() == 1){
-            
+        if (this.ball.getLastTouch() == 1) {
+
         }
     }
 
     /**
      * Controllo del rimbalzo delle racchette
+     * 
      * @return true se la pallina ha colpito una racchetta, false se non lo ha fatto
      */
     public Boolean checkPaddleHit() {
@@ -180,7 +188,7 @@ public class Field{
             }
             // inverte percorso sul piano x
             this.ball.setDirectionX('l');
-            //imposto chi ha fatto l'ultimo tocco
+            // imposto chi ha fatto l'ultimo tocco
             this.ball.setLastTouch(2);
             return true;
         }
@@ -199,7 +207,7 @@ public class Field{
             }
             // inverte percorso sul piano x
             this.ball.setDirectionX('r');
-            //imposto nella pallina chi ha fatto l'ultimo tocco
+            // imposto nella pallina chi ha fatto l'ultimo tocco
             this.ball.setLastTouch(1);
             return true;
         }
@@ -209,37 +217,51 @@ public class Field{
     /**
      * Controllo sul tocco della pallina a un PowerUp
      */
-    public void checkPowerUpBlockHit(){
-        //per tutti i power up
-        for(int i = 0; i < this.listPowerUp.size(); i++){
-            //solo se è disponibile
-            if(this.listPowerUp.get(i).getIsActivate()){
-                //controllo della collisione tra pallina e quadrato del power up
-                if ((this.ball.getX() + this.ball.getRadius() >= this.listPowerUp.get(i).getX() && 
-                this.ball.getX() + this.ball.getRadius() <= this.listPowerUp.get(i).getX() + this.listPowerUp.get(i).getWidth())
-                && (this.ball.getY() + this.ball.getRadius() >= this.listPowerUp.get(i).getY() && 
-                this.ball.getY() + this.ball.getRadius() <= this.listPowerUp.get(i).getY() + this.listPowerUp.get(i).getWidth())
-                ) {
-                    //se la pallina non è stata toccata da nessun giocatore e tocca un power non succede nulla
-                    //quindi
-                    //se last touch != 0
-                    if(this.ball.getLastTouch() != 0){
-                        //lo rendo non più disponibile e attivo l'effetto/potenziamento
-                        this.listPowerUp.get(i).setIsActivate(false);
-                        //il blocco è stato rotto quindi imposto le coordinate dela pallina
-                        //lo rendo attivo
-                        this.listPowerUp.get(i).setIsBallPowerUpActivate(true);
-                        this.listPowerUp.get(i).getBallPowerUp().setDirectionXPowerUp(this.ball.getLastTouch());
-                        this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).getX(), this.listPowerUp.get(i).getY());                     
-                    }
+    public void checkPowerUpBlockHit() {
+        // per tutti i power up
+        for (int i = 0; i < this.listPowerUp.size(); i++) {
+            // controllo della collisione tra pallina e quadrato del power up
+            if ((this.ball.getX() + this.ball.getRadius() >= this.listPowerUp.get(i).getX() &&
+                    this.ball.getX() + this.ball.getRadius() <= this.listPowerUp.get(i).getX()
+                            + this.listPowerUp.get(i).getWidth())
+                    && (this.ball.getY() + this.ball.getRadius() >= this.listPowerUp.get(i).getY() &&
+                            this.ball.getY() + this.ball.getRadius() <= this.listPowerUp.get(i).getY()
+                                    + this.listPowerUp.get(i).getWidth())) {
+                // se la pallina non è stata toccata da nessun giocatore e tocca un power non
+                // succede nulla
+                // quindi
+                // se last touch != 0
+                if (this.ball.getLastTouch() != 0) {
+                    // lo rendo non più disponibile e attivo l'effetto/potenziamento
+                    this.listPowerUp.remove(i);
+                    // il blocco è stato rotto quindi imposto le coordinate dela pallina
+                    // lo rendo attivo
+                    /*
+                     * this.listPowerUp.get(i).setIsBallPowerUpActivate(true);
+                     * this.listPowerUp.get(i).getBallPowerUp().setDirectionXPowerUp(this.ball.
+                     * getLastTouch());
+                     * this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).
+                     * getX(), this.listPowerUp.get(i).getY());
+                     */
+                    if (this.ball.getLastTouch() == 1)
+                        this.playerOne.increaseScore();
+                    else
+                        this.playerTwo.increaseScore();
+
+                    //genero un altro powerup
+                    this.generatePowerUp();
                 }
             }
+            //alla fine controllo sempre se lo devo spostare
+            this.listPowerUp.get(i).checkTimeCreate();
         }
     }
 
     /**
      * Controllo del tocco della paddle sulla parete alta
-     * @return true se la paddle si può spostare in alto senza uscire dal campo, false se non può
+     * 
+     * @return true se la paddle si può spostare in alto senza uscire dal campo,
+     *         false se non può
      */
     public boolean checkTop() {
         // controllo alto
@@ -251,7 +273,9 @@ public class Field{
 
     /**
      * Controllo del tocco della paddle sulla parete bassa
-     * @return true se la paddle si può spostare in basso senza uscire dal campo, false se non può
+     * 
+     * @return true se la paddle si può spostare in basso senza uscire dal campo,
+     *         false se non può
      */
     public boolean checkDown() {
         // controllo basso
@@ -262,34 +286,36 @@ public class Field{
     }
 
     /**
-     * Controllo punteggio: assegnazione punti e set e eventuale determinazione vincitore
+     * Controllo punteggio: assegnazione punti e set e eventuale determinazione
+     * vincitore
+     * 
      * @return
      */
-    public int checkScores(){
+    public int checkScores() {
         boolean tmp = false;
 
-        //controllo set
-        //assegna set al giocatore 1
-        if(this.playerOne.getScore() == 10 ){
+        // controllo set
+        // assegna set al giocatore 1
+        if (this.playerOne.getScore() == 10) {
             this.playerOne.increaseSets();
             tmp = true;
         }
-        //assegna set al giocatore 2
-        else if(this.playerTwo.getScore() == 10){
+        // assegna set al giocatore 2
+        else if (this.playerTwo.getScore() == 10) {
             this.playerTwo.increaseSets();
             tmp = true;
         }
 
-        //se è finito un set resetta il punteggio
-        if(tmp){
+        // se è finito un set resetta il punteggio
+        if (tmp) {
             this.playerOne.resetScore();
             this.playerTwo.resetScore();
         }
 
-        //controllo fine gioco
-        if(playerOne.getSets() == 3){
+        // controllo fine gioco
+        if (playerOne.getSets() == 3) {
             return 1;
-        } else if(playerTwo.getSets() == 3){
+        } else if (playerTwo.getSets() == 3) {
             return 2;
         }
         return 0;
@@ -298,58 +324,49 @@ public class Field{
     /**
      * Generazione PowerUp
      */
-    public void generatePowerUp(){
+    public void generatePowerUp() {
         Random random = new Random();
-        int type = random.nextInt(3);
-        int pos = random.nextInt(7);
-        //attiva il power up alla posizione random
-        switch (type) {
-            case 0:
-                this.listPowerUp.get(pos).setType('A');
-                break;
-            case 1:
-                this.listPowerUp.get(pos).setType('B');
-                break;
-            case 2:
-                this.listPowerUp.get(pos).setType('C');
-                break;
-            case 3:
-                this.listPowerUp.get(pos).setType('D');
-                break;
-        }
-        //lo rendo visibile
-        this.listPowerUp.get(pos).setIsActivate(true);
+        // genero la posizione x e y
+        int posX = random.nextInt(900) + 200;
+        int posY = random.nextInt(650) + 50;
+        
+        PowerUp p = new PowerUp(posY, posX, 'A');
+        this.listPowerUp.add(p);
     }
 
     /**
      * Set del giocatore uno
+     * 
      * @param p nuovo valore
      */
-    public void setPlayerOne(Player p){
+    public void setPlayerOne(Player p) {
         this.playerOne = p;
     }
 
     /**
      * Set del giocatore due
+     * 
      * @param p nuovo valore
      */
-    public void setPlayerTwo(Player p){
+    public void setPlayerTwo(Player p) {
         this.playerTwo = p;
     }
 
     /**
      * Set della pallina
+     * 
      * @param b nuovo valore
      */
-    public void setBall(Ball b){
+    public void setBall(Ball b) {
         this.ball = b;
     }
 
     /**
      * Set della lista di power up
+     * 
      * @param list nuovo valore
      */
-    public void setListPowerUp(ArrayList<PowerUp> list){
+    public void setListPowerUp(ArrayList<PowerUp> list) {
         this.listPowerUp = list;
     }
 }

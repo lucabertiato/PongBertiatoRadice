@@ -130,7 +130,7 @@ public class XML {
      * @return lista di oggetti di power up
      */
     public ArrayList<PowerUp> parsePowerUps(Element parentElement, String elementName) {
-        Element powerUpsElement = getChildElement(parentElement, elementName);
+        Element powerUpsElement = parentElement;//getChildElement(parentElement, elementName);
 
         if (powerUpsElement != null) {
             NodeList powerUpNodes = powerUpsElement.getElementsByTagName("powerUp");
@@ -157,7 +157,8 @@ public class XML {
      * @return oggetto Paddle
      */
     public PowerUp parsePowerUpElement(Element parentElement, String elementName) {
-        Element powerUpElement = getChildElement(parentElement, elementName);
+        Element powerUpElement = parentElement;//getChildElement(parentElement, elementName);
+
 
         if (powerUpElement != null) {
             PowerUp powerUp = new PowerUp();
@@ -165,10 +166,7 @@ public class XML {
             powerUp.setY(getChildElementValue(powerUpElement, "y", 0));
             powerUp.setWidth(getChildElementValue(powerUpElement, "width", 0));
             powerUp.setType(getChildElementValue(powerUpElement, "type", '\0'));
-            powerUp.setIsActivate(getChildElementValue(powerUpElement, "isActivate", false));
-            powerUp.setImg(getChildElementValue(powerUpElement, "img", ""));
-            powerUp.setIsValid(getChildElementValue(powerUpElement, "isValid", false));
-
+            powerUp.setTimeCreate(getChildElementValue(powerUpElement, "timeCreate", 0L));
             return powerUp;
         }
 
@@ -232,6 +230,8 @@ public class XML {
             return (T) Character.valueOf(value.charAt(0));
         } else if (type == Boolean.class) {
             return (T) Boolean.valueOf(value);
+        }else if (type == Long.class) {
+            return (T) Long.valueOf(value);
         } else {
             return (T) value;
         }
@@ -404,18 +404,10 @@ public class XML {
         Element typeElement = doc.createElement("type");
         typeElement.appendChild(doc.createTextNode(String.valueOf(powerUp.getType())));
         powerUpElement.appendChild(typeElement);
-    
-        Element isActivateElement = doc.createElement("isActivate");
-        isActivateElement.appendChild(doc.createTextNode(String.valueOf(powerUp.getIsActivate())));
-        powerUpElement.appendChild(isActivateElement);
-    
-        Element imgElement = doc.createElement("img");
-        imgElement.appendChild(doc.createTextNode("DA IMPLEMENTARE"));
-        powerUpElement.appendChild(imgElement);
-    
-        Element isValidElement = doc.createElement("isValid");
-        isValidElement.appendChild(doc.createTextNode(String.valueOf(powerUp.getIsValid())));
-        powerUpElement.appendChild(isValidElement);
+
+        Element timeElement = doc.createElement("timeCreate");
+        timeElement.appendChild(doc.createTextNode(String.valueOf(powerUp.getTimeCreate())));
+        powerUpElement.appendChild(timeElement);
     
         return powerUpElement;
     }
