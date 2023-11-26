@@ -74,18 +74,13 @@ public class TcpServer {
      */
     public void sendGeneratedField(String xml, XML xmlService)
             throws IOException, TransformerException, ParserConfigurationException {
-        // System.out.println("Server in attesa di connessioni...");
 
         while (this.connectedClients < 2) {
             Socket clientSocket = this.serverSocket.accept();
-            // System.out.println("Client connesso: " + clientSocket.getInetAddress());
 
             clientSockets[this.connectedClients] = clientSocket;
             this.connectedClients++;
         }
-
-        // System.out.println("Entrambi i client sono connessi. Invio il campo
-        // iniziale.");
 
         for (Socket clientSocket : this.clientSockets) {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -127,7 +122,6 @@ public class TcpServer {
             throws IOException, TransformerException, ParserConfigurationException {
         String fieldStr = "";
         String secondFieldStr = "";
-        // System.out.println("Server in attesa di connessioni...");
 
         while (this.connectedClients < 2) {
             Socket clientSocket = this.serverSocket.accept();
@@ -145,8 +139,6 @@ public class TcpServer {
             clientSockets[numPlayer] = clientSocket;
             this.connectedClients++;
         }
-
-        // System.out.println("Entrambi i client sono connessi. Inizio procedura.");
 
        /*  // riordina campi in base a ordine iniziale di player
         if (!((clientSockets[0].getInetAddress() + "").contains(sortedPlayers[0]))) { // disordinati

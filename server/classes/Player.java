@@ -63,6 +63,14 @@ public class Player {
         this.score++;
     }
 
+    /*
+     * Decremento punteggio
+     */
+    public void decreasesScore() {
+        if(this.score > 0)
+            this.score--;
+    }
+
     /**
      * Get dei set vinti dal giocatore
      * @return set vinti

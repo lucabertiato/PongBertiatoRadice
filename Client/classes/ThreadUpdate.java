@@ -27,12 +27,10 @@ public class ThreadUpdate implements Runnable{
                 TcpClient tcpService = new TcpClient(Main.SERVER_IP, Main.PORT);
                 XML xmlService = new XML("tmp");
                 String newXmlField = tcpService.updateField(xmlService.fieldToXML(field), this.playerNumber);
-                System.out.println(newXmlField);
                 Field newField = xmlService.fromXML(newXmlField);
                 field.updateField(newField);
-                //System.out.println("x: "+field.getBall().getX()+" y: "+ field.getBall().getX());
                 // Aggiungi un ritardo per evitare l'overhead eccessivo
-                Thread.sleep(50);
+                Thread.sleep(33);
             } catch (InterruptedException | IOException | TransformerException | ParserConfigurationException e) {
                 e.printStackTrace();
             }

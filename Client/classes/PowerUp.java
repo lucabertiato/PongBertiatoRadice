@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class PowerUp {
@@ -5,6 +6,10 @@ public class PowerUp {
     private int x;
     private int y;
     private int width;
+    /*
+     * A = se prendo il quadrato prendi un punto --- colore blu
+     * B = se prendo il quadrato perdi un punto --- colore rosso
+     */
     private char type;
     //pallina che esce dopo aver colpito il blocco
     private Ball ballPowerUp;
@@ -40,12 +45,18 @@ public class PowerUp {
     }
 
     /**
-     * Disegno del blocco del PowerUp
+     * Disegno del blocco del PowerUp in base al tipo modifico il colore
      * @param g graphics
      */
     public void drawPowerUp(Graphics g) {
-        //if(this.isActivate)
-            g.fillRect(this.x, this.y, this.width, this.width);
+        if(type == 'A')
+            g.setColor(Color.BLUE);
+        else if(type == 'B')
+            g.setColor(Color.RED);
+        //disegno
+        g.fillRect(this.x, this.y, this.width, this.width);
+        //ritorno a bianco
+        g.setColor(Color.WHITE);
     }
 
     /**

@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Field{
     Player playerOne;
@@ -311,32 +310,6 @@ public class Field{
             return 2;
         }
         return 0;
-    }
-
-    /**
-     * Generazione PowerUp
-     */
-    public void generatePowerUp(){
-        Random random = new Random();
-        int type = random.nextInt(3);
-        int pos = random.nextInt(7);
-        if(this.listPowerUp.size() > pos){
-            //attiva il power up alla posizione random
-            switch (type) {
-                case 0:
-                    this.listPowerUp.get(pos).setType('A');
-                    break;
-                case 1:
-                    this.listPowerUp.get(pos).setType('B');
-                    break;
-                case 2:
-                    this.listPowerUp.get(pos).setType('C');
-                    break;
-                case 3:
-                    this.listPowerUp.get(pos).setType('D');
-                    break;
-            }
-        }
     }
 
     /**

@@ -232,8 +232,7 @@ public class Field {
                 // quindi
                 // se last touch != 0
                 if (this.ball.getLastTouch() != 0) {
-                    // lo rendo non più disponibile e attivo l'effetto/potenziamento
-                    this.listPowerUp.remove(i);
+                    
                     // il blocco è stato rotto quindi imposto le coordinate dela pallina
                     // lo rendo attivo
                     /*
@@ -243,17 +242,25 @@ public class Field {
                      * this.listPowerUp.get(i).setBallPowerUpCoordinates(this.listPowerUp.get(i).
                      * getX(), this.listPowerUp.get(i).getY());
                      */
-                    if (this.ball.getLastTouch() == 1)
-                        this.playerOne.increaseScore();
-                    else
-                        this.playerTwo.increaseScore();
-
-                    //genero un altro powerup
-                    this.generatePowerUp();
+                    //in base al tipo di power up
+                    if(this.listPowerUp.get(i).getType() == 'A'){
+                        if (this.ball.getLastTouch() == 1)
+                            this.playerOne.increaseScore();
+                        else
+                            this.playerTwo.increaseScore();
+                    }
+                    else if(this.listPowerUp.get(i).getType() == 'B'){
+                        if (this.ball.getLastTouch() == 1)
+                            this.playerOne.decreasesScore();
+                        else
+                            this.playerTwo.decreasesScore();
+                    }
+                    //genero un altro powerup se lo tocca
+                    this.generatePowerUp(this.listPowerUp.get(i).getType());
+                    //lo elimino dalla lista
+                    this.listPowerUp.remove(i);
                 }
             }
-            //alla fine controllo sempre se lo devo spostare
-            this.listPowerUp.get(i).checkTimeCreate();
         }
     }
 
@@ -265,7 +272,7 @@ public class Field {
      */
     public boolean checkTop() {
         // controllo alto
-        if (this.playerOne.getPaddle().getY() - 10 < 0) {
+        if (this.playerOne.getPaddle().getY() - 20 < 0) {
             return false;
         }
         return true;
@@ -279,7 +286,7 @@ public class Field {
      */
     public boolean checkDown() {
         // controllo basso
-        if (this.playerOne.getPaddle().getY() + 10 > 550) {
+        if (this.playerOne.getPaddle().getY() + 20 > 550) {
             return false;
         }
         return true;
@@ -324,13 +331,13 @@ public class Field {
     /**
      * Generazione PowerUp
      */
-    public void generatePowerUp() {
+    public void generatePowerUp(char type) {
         Random random = new Random();
         // genero la posizione x e y
         int posX = random.nextInt(900) + 200;
-        int posY = random.nextInt(650) + 50;
+        int posY = random.nextInt(550) + 50;
         
-        PowerUp p = new PowerUp(posY, posX, 'A');
+        PowerUp p = new PowerUp(posY, posX, type);
         this.listPowerUp.add(p);
     }
 

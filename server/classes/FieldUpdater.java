@@ -32,6 +32,7 @@ public class FieldUpdater {
         tmp.setBall(this.f.getBall());
         tmp.getBall().setX(1500-this.f.getBall().getX());
 
+        //specchio i power up
         tmp.setListPowerUp(this.f.listPowerUp);
         for(int i = 0; i < tmp.getListPowerUp().size(); i++){
             tmp.getListPowerUp().get(i).setX(1500-this.f.getListPowerUp().get(i).getX());
@@ -55,7 +56,13 @@ public class FieldUpdater {
         } else {
             this.f.checkPaddleHit();
         }
+        //controllo se la pallina ha preso il blocco
         this.f.checkPowerUpBlockHit();
+
+        //controllo se lo devo spostare
+        for (PowerUp p : this.f.getListPowerUp()) {
+            p.checkTimeCreate();
+        }
 
         if (generateBall) {
             Ball tmpBall = new Ball();

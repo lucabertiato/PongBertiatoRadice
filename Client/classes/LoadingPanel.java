@@ -26,9 +26,15 @@ class LoadingPanel extends JPanel {
         g.fillRect(0, 0, getWidth(), getHeight());
         
         // sfondo
-        g.setColor(Color.RED);
+        g.setColor(Color.WHITE);
         Font customFont = new Font("Arial", Font.BOLD, 50);
         g.setFont(customFont);
         g.drawString("Attesa connessione avversario...", 50, 50);
+        g.drawString("PowerUp: " ,50, 150);
+        g.setColor(Color.RED);
+        g.drawString("Quadrato ROSSO meno un punto", 50, 225);
+        g.setColor(Color.BLUE);
+        g.drawString("Quadrato BLU meno un punto", 50, 300);
+        g.setColor(Color.WHITE);
     }
 }

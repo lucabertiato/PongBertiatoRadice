@@ -14,8 +14,10 @@ public class Server {
         //campo iniziale
         Field field = new Field();
         field.getBall().generateBall();
-        //genero il primo powerUp
-        field.generatePowerUp();
+        //genero il primo powerUp di tipo A
+        field.generatePowerUp('A');
+        //genero il primo powerUp di tipo B
+        field.generatePowerUp('B');
         tcpService = new TcpServer();
         XML xmlService = new XML("tmp");
         tcpService.sendGeneratedField(xmlService.fieldToXML(field), xmlService);
@@ -48,8 +50,5 @@ public class Server {
         }
         */
         System.out.println();
-
-        //converto in oggetto
-        //}
     }
 }
