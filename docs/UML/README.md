@@ -1,1 +1,1 @@
-# cartella che contiene tutti i documenti UML
+# Cartella che contiene la documentazione UML
