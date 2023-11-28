@@ -7,8 +7,6 @@ Cartella contenente ile varie classe utilizzate nel Server.
 - **`/Ball.java`**: pallina.
 - **`/Field.java`**: campo da gioco.
 - **`/FieldUpdater.java`**: servizio che si occupa di aggiornare le informazioni dei due campi durante il corso del gioco.
-- **`/GamePanel.java`**: pannello di gioco.
-- **`/Listener.java`**: servizio che si mette in "ascolto" dei tasti premuti dai giocatori.
 - **`/Paddle.java`**: racchetta del giocatore.
 - **`/Player.java`**: giocatore.
 - **`/PowerUp.java`**: power up.
